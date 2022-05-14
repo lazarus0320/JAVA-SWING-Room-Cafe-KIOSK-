@@ -30,7 +30,7 @@ public class logIn extends ShareData{
 	private JTextField idField;
 	private JPasswordField passField;
 	
-	private String userName = null;
+
 
 	/**
 	 * Launch the application.
@@ -68,8 +68,20 @@ public class logIn extends ShareData{
 		for(int i = 0; i < accountArr.size(); i++) {
 			JSONObject obj = (JSONObject)accountArr.get(i);
 			if (obj.get("id").equals(id) && obj.get("password").equals(pass)) {
-				userName = (String)obj.get("name");
 				userStatus = obj;
+				userName = (String)obj.get("name");
+				userId = (String)obj.get("id");
+				userPass = (String)obj.get("password");
+				userPhone = (String)obj.get("phone");
+				userTimeTicket = (String) obj.get("timeTicket");
+				userDayTicket = (String)obj.get("dayTicket");
+				
+				System.out.println(userName);
+				System.out.println(userId);
+				System.out.println(userPass);
+				System.out.println(userPhone);
+				System.out.println(userTimeTicket);
+				System.out.println(userDayTicket);
 				return true;
 			}
 		}
@@ -171,21 +183,27 @@ public class logIn extends ShareData{
 						try {
 							if(loginCheck(testId, testPass)) {
 								if (testId.equals("astar5327") && testPass.equals("astar5327")) {
-									System.out.println("관리자 로그인");
 									int answer = JOptionPane.showConfirmDialog(frame, "관리자 모드로 로그인 하시겠습니까?", "관리자 모드",JOptionPane.YES_NO_OPTION );
 									if(answer==JOptionPane.YES_OPTION){  //사용자가 yes를 눌렀을 경우
 										System.out.println("관리자 모드 접속");
 										Admin admin = new Admin();
 										admin.setVisible(true);
 										frame.setVisible(false);
+										return;
 									} else{  //사용자가 Yes 이외의 값을 눌렀을 경우
 										System.out.println("일반 로그인");
+										Ticket tk = new Ticket();
+										tk.setVisible(true);
+										frame.setVisible(false);
+										return;
 									}
-									return;
+									
 								}
 								System.out.println("로그인 성공");
 								JOptionPane.showMessageDialog(null, userName + " 고객님, 환영합니다!");
-								
+								Ticket tk = new Ticket();
+								tk.setVisible(true);
+								frame.setVisible(false);
 							} else {
 								System.out.println("로그인 실패 > 로그인 정보 불일치");
 								JOptionPane.showMessageDialog(null, "일치하는 회원 정보가 없습니다.");

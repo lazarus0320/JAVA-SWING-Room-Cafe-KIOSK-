@@ -20,10 +20,12 @@ public class DataJson{
 		JSONArray childrens = new JSONArray();
 		
 		JSONObject child = new JSONObject();
-		child.put("id", "astar5327");
-		child.put("password", "astar5327");
+		child.put("id", "admin0320");
+		child.put("password", "admin0320");
 		child.put("name", "¹ÎÁöÈÆ");
 		child.put("phone", "01082485327");
+		child.put("timeTicket", "10000");
+		child.put("dayTicket", "100");
 		childrens.add(child);
 		
 		parent.put("È¸¿øÁ¤º¸", childrens);
@@ -33,6 +35,8 @@ public class DataJson{
 		child2.put("password", "12345678");
 		child2.put("name", "È«±æµ¿");
 		child2.put("phone", "01012345678");
+		child2.put("timeTicket", "120");
+		child2.put("dayTicket", "3");
 		childrens.add(child2);
 		
 		parent.put("È¸¿øÁ¤º¸", childrens);
