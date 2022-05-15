@@ -3,6 +3,11 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -144,6 +149,20 @@ public class DataJson{
 	
 	void DataReset() {
 		try { 
+			try {
+				// 디렉토리 생성
+				Path directoryPath = Paths.get("C:\\KIOSK\\KIOSK_USER");
+				Files.createDirectory(directoryPath);
+				System.out.println(directoryPath + " 디렉토리가 생성되었습니다.");
+				} catch (FileAlreadyExistsException e) {
+				System.out.println("디렉토리가 이미 존재합니다");
+				} catch (NoSuchFileException e) {
+				System.out.println("디렉토리 경로가 존재하지 않습니다");
+				}catch (IOException e) {
+				e.printStackTrace();
+				}
+			
+			
 			FileOutputStream fileOutputStream = new FileOutputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
 			OutputStreamWriter OutputStreamWriter = new OutputStreamWriter(fileOutputStream, "utf-8");
 			BufferedWriter file = new BufferedWriter(OutputStreamWriter);

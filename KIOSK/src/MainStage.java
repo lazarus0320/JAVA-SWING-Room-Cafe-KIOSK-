@@ -70,10 +70,21 @@ public class MainStage extends ShareData{
 		title.setBounds(370, 40, 469, 69);
 		panel.add(title);
 		
+		
 		JButton[] rooms = new JButton[10];
 		for(int i = 0; i < rooms.length; i++) {
 			rooms[i] = new JButton();
-			rooms[i].setBackground(new Color(255, 69, 0));
+			if (timeTicketUse == true || dayTicketUse == true) {
+				rooms[i].setBackground(new Color(128, 128, 128));
+				LineBorder tb = new LineBorder(Color.yellow, 5, true);
+				rooms[selectedRoomNum-1].setBorder(tb);
+			}
+			else if (roomState[i] == true) {
+				rooms[i].setBackground(new Color(65, 105, 225));
+			}
+			else if(roomState[i] == false){
+				rooms[i].setBackground(new Color(255, 69, 0));
+			}
 			rooms[i].setFocusPainted(false);
 			rooms[i].setFont(new Font("돋움", Font.BOLD, 30));
 			panel.add(rooms[i]);
@@ -100,13 +111,14 @@ public class MainStage extends ShareData{
 		rooms[8].setText("9");
 		rooms[9].setText("10");
 		
-		rooms[3].setBackground(new Color(65, 105, 225));
-		rooms[7].setBackground(new Color(65, 105, 225));
 		
 
 		rooms[0].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	if (timeTicketUse == true || dayTicketUse == true) {
+            		return;
+            	}
                 if (roomState[0] == false) {
                 	JOptionPane.showMessageDialog(null, "이미 대실한 룸입니다. 다른 룸을 선택해주세요.");
                 	return;
@@ -123,7 +135,11 @@ public class MainStage extends ShareData{
 
 		rooms[1].addActionListener(new ActionListener() {
             @Override
+            
             public void actionPerformed(ActionEvent e) {
+            	if (timeTicketUse == true || dayTicketUse == true) {
+            		return;
+            	}
                 if (roomState[1] == false) {
                 	JOptionPane.showMessageDialog(null, "이미 대실한 룸입니다. 다른 룸을 선택해주세요.");
                 	return;
@@ -141,6 +157,9 @@ public class MainStage extends ShareData{
 		rooms[2].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	if (timeTicketUse == true || dayTicketUse == true) {
+            		return;
+            	}
                 if (roomState[2] == false) {
                 	JOptionPane.showMessageDialog(null, "이미 대실한 룸입니다. 다른 룸을 선택해주세요.");
                 	return;
@@ -158,6 +177,9 @@ public class MainStage extends ShareData{
 		rooms[3].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	if (timeTicketUse == true || dayTicketUse == true) {
+            		return;
+            	}
                 if (roomState[3] == false) {
                 	JOptionPane.showMessageDialog(null, "이미 대실한 룸입니다. 다른 룸을 선택해주세요.");
                 	return;
@@ -175,6 +197,9 @@ public class MainStage extends ShareData{
 		rooms[4].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	if (timeTicketUse == true || dayTicketUse == true) {
+            		return;
+            	}
                 if (roomState[4] == false) {
                 	JOptionPane.showMessageDialog(null, "이미 대실한 룸입니다. 다른 룸을 선택해주세요.");
                 	return;
@@ -192,6 +217,9 @@ public class MainStage extends ShareData{
 		rooms[5].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	if (timeTicketUse == true || dayTicketUse == true) {
+            		return;
+            	}
                 if (roomState[5] == false) {
                 	JOptionPane.showMessageDialog(null, "이미 대실한 룸입니다. 다른 룸을 선택해주세요.");
                 	return;
@@ -209,6 +237,9 @@ public class MainStage extends ShareData{
 		rooms[6].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	if (timeTicketUse == true || dayTicketUse == true) {
+            		return;
+            	}
                 if (roomState[6] == false) {
                 	JOptionPane.showMessageDialog(null, "이미 대실한 룸입니다. 다른 룸을 선택해주세요.");
                 	return;
@@ -226,6 +257,9 @@ public class MainStage extends ShareData{
 		rooms[7].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	if (timeTicketUse == true || dayTicketUse == true) {
+            		return;
+            	}
                 if (roomState[7] == false) {
                 	JOptionPane.showMessageDialog(null, "이미 대실한 룸입니다. 다른 룸을 선택해주세요.");
                 	return;
@@ -243,6 +277,9 @@ public class MainStage extends ShareData{
 		rooms[8].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	if (timeTicketUse == true || dayTicketUse == true) {
+            		return;
+            	}
                 if (roomState[8] == false) {
                 	JOptionPane.showMessageDialog(null, "이미 대실한 룸입니다. 다른 룸을 선택해주세요.");
                 	return;
@@ -260,6 +297,9 @@ public class MainStage extends ShareData{
 		rooms[9].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	if (timeTicketUse == true || dayTicketUse == true) {
+            		return;
+            	}
                 if (roomState[9] == false) {
                 	JOptionPane.showMessageDialog(null, "이미 대실한 룸입니다. 다른 룸을 선택해주세요.");
                 	return;
@@ -277,6 +317,9 @@ public class MainStage extends ShareData{
 		
 		
 		JButton checkBtn = new JButton("\uB300\uC2E4\uD558\uAE30");
+		if (timeTicketUse == true || dayTicketUse == true) {
+    		checkBtn.setText("퇴실하기");
+    	}
 		checkBtn.setForeground(new Color(255, 255, 255));
 		checkBtn.setBackground(new Color(220, 20, 60));
 		checkBtn.setFont(new Font("맑은 고딕", Font.BOLD, 30));
@@ -315,6 +358,7 @@ public class MainStage extends ShareData{
             }
 		});
 	}
+	
 	public void setVisible(boolean b) {
 		// TODO Auto-generated method stub
 		frame.setVisible(b);

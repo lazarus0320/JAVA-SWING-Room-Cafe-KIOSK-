@@ -6,13 +6,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class BuyTicketWindow extends ShareData{
 
@@ -41,7 +60,221 @@ public class BuyTicketWindow extends ShareData{
 	public BuyTicketWindow() {
 		initialize();
 	}
+	
+	public String makeRentTime() {
+		LocalDateTime now = LocalDateTime.now();
+		String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy년MM월dd일 HH시mm분ss초"));
+		System.out.println(formatedNow);
+		return formatedNow;
+	}
+	
+	public void makeRentData(String time , int chargeVal, int changeVal) {
+		try { 
+			try {
+				// 디렉토리 생성
+				Path directoryPath = Paths.get("C:\\KIOSK\\KIOSK_RECEIPT");
+				Files.createDirectory(directoryPath);
+				System.out.println(directoryPath + " 디렉토리가 생성되었습니다.");
+				} catch (FileAlreadyExistsException e) {
+				System.out.println("디렉토리가 이미 존재합니다");
+				} catch (NoSuchFileException e) {
+				System.out.println("디렉토리 경로가 존재하지 않습니다");
+				}catch (IOException e) {
+				e.printStackTrace();
+				}
+			FileOutputStream fileOutputStream = new FileOutputStream("C:\\KIOSK\\KIOSK_RECEIPT\\" + userName + time  + ".txt");
+			OutputStreamWriter OutputStreamWriter = new OutputStreamWriter(fileOutputStream, "utf-8");
+			BufferedWriter file = new BufferedWriter(OutputStreamWriter);
 
+			file.write("룸카페 KIOSK 영수증"); 
+			file.newLine();
+			
+			file.write("사업자번호 : 123-4567-890    대표자 : 민지훈");
+			file.newLine();
+			file.write("회원 이름 : " + userName); 
+			file.newLine();
+			file.write("결제 시간 : " + time); 
+			file.newLine();
+			file.write("==============================="); 
+			file.newLine();
+			file.write("이용권 이름            금액"); 
+			file.newLine();
+			file.write("==============================="); 
+			file.newLine();
+			file.write(selectedTicketName + "                  " + selectedTicketPrice + "원"); 
+			file.newLine();
+			file.write("------------------------------------------------------");
+			file.newLine();
+			file.write("지불금액              " + chargeVal + "원");
+			file.newLine();
+			file.write("거스름돈              " + changeVal + "원");		
+			
+			
+			file.flush(); 
+			file.close(); 
+			System.out.println("C:\\KIOSK\\KIOSK_RECEIPT\\ 경로에 영수증 파일 생성됨.");
+		} catch (IOException e) { 
+				e.printStackTrace(); 
+		}
+	}
+	
+	public void addTicketData() {
+		System.out.println("addTicketData 메서드 실행");
+		if (selectedTicketName == "1시간"){
+			try {
+				addTicketTime(60);
+			} catch (IOException | ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if (selectedTicketName == "2시간"){
+			try {
+				addTicketTime(120);
+			} catch (IOException | ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if (selectedTicketName == "3시간"){
+			try {
+				addTicketTime(180);
+			} catch (IOException | ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if (selectedTicketName == "4시간"){
+			try {
+				addTicketTime(240);
+			} catch (IOException | ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if (selectedTicketName == "5시간"){
+			try {
+				addTicketTime(300);
+			} catch (IOException | ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if (selectedTicketName == "10시간"){
+			try {
+				addTicketTime(600);
+			} catch (IOException | ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if (selectedTicketName == "1일"){
+			try {
+				addTicketDay(1);
+			} catch (IOException | ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if (selectedTicketName == "2일"){
+			try {
+				addTicketDay(2);
+			} catch (IOException | ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if (selectedTicketName == "3일"){
+			try {
+				addTicketDay(3);
+			} catch (IOException | ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if (selectedTicketName == "5일"){
+			try {
+				addTicketDay(5);
+			} catch (IOException | ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if (selectedTicketName == "10일"){
+			try {
+				addTicketDay(10);
+			} catch (IOException | ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void addTicketDay(int day) throws IOException, ParseException{
+		
+		FileInputStream fileInputStream = new FileInputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
+		InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "utf-8");
+		BufferedReader file = new BufferedReader(inputStreamReader);
+		JSONParser parser = new JSONParser();
+		
+		JSONObject jsonObj = (JSONObject)parser.parse(file);
+		JSONArray accountArr = (JSONArray)jsonObj.get("회원정보");
+		
+		for (int i = 0; i < accountArr.size(); i++) {
+			JSONObject obj = (JSONObject)accountArr.get(i);
+			if (obj.get("name").equals(userName)) {
+				String strDayTicketVal = (String)obj.get("dayTicket");
+				int changeDay = Integer.parseInt(strDayTicketVal) + day;
+				obj.put("dayTicket", Integer.toString(changeDay));
+			}
+		}
+
+		try { 
+			FileOutputStream fileOutputStream2 = new FileOutputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
+			OutputStreamWriter OutputStreamWriter2 = new OutputStreamWriter(fileOutputStream2, "utf-8");
+			BufferedWriter file2 = new BufferedWriter(OutputStreamWriter2);
+			
+			System.out.println(jsonObj.toJSONString());
+			file2.write(jsonObj.toJSONString()); 
+			file2.flush(); 
+			file2.close(); 
+		} catch (IOException e) { 
+				e.printStackTrace(); 
+		}
+	}
+	
+	public void addTicketTime(int time) throws IOException, ParseException{
+		
+		FileInputStream fileInputStream = new FileInputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
+		InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "utf-8");
+		BufferedReader file = new BufferedReader(inputStreamReader);
+		JSONParser parser = new JSONParser();
+		
+		JSONObject jsonObj = (JSONObject)parser.parse(file);
+		JSONArray accountArr = (JSONArray)jsonObj.get("회원정보");
+		
+		for (int i = 0; i < accountArr.size(); i++) {
+			JSONObject obj = (JSONObject)accountArr.get(i);
+			if (obj.get("name").equals(userName)) {
+				String strTimeTicketVal = (String)obj.get("timeTicket");
+				int changeTime = Integer.parseInt(strTimeTicketVal) + time;
+				obj.put("timeTicket", Integer.toString(changeTime));
+			}
+		}
+		try { 
+			FileOutputStream fileOutputStream2 = new FileOutputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
+			OutputStreamWriter OutputStreamWriter2 = new OutputStreamWriter(fileOutputStream2, "utf-8");
+			BufferedWriter file2 = new BufferedWriter(OutputStreamWriter2);
+			
+			System.out.println(jsonObj.toJSONString());
+			file2.write(jsonObj.toJSONString()); 
+			file2.flush(); 
+			file2.close(); 
+		} catch (IOException e) { 
+				e.printStackTrace(); 
+		}
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -163,6 +396,53 @@ public class BuyTicketWindow extends ShareData{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				frame.dispose();
+			}
+		});
+		
+		payBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				int answer = JOptionPane.showConfirmDialog(frame, "결제하시겠습니까?", "confirm",JOptionPane.YES_NO_OPTION );
+				if(answer==JOptionPane.YES_OPTION){  //사용자가 yes를 눌렀을 경우
+					int chargeVal = Integer.parseInt(chargeField.getText());
+					int changeVal = Integer.parseInt(changeLabel.getText());
+					if (selectedTicketPrice > chargeVal) {
+						System.out.println("결제 금액을 확인해주세요.");
+						JOptionPane.showMessageDialog(frame, "결제 금액을 확인해주세요.", "Message", JOptionPane.WARNING_MESSAGE );
+						return;
+					}
+					System.out.println("결제 완료.");
+					String rentTime = makeRentTime();
+					
+					addTicketData();
+					int answer2 = JOptionPane.showConfirmDialog(frame, "결제 되었습니다. 영수증을 출력하시겠습니까?", "confirm",JOptionPane.YES_NO_OPTION );
+					if(answer2==JOptionPane.YES_OPTION){  //사용자가 yes를 눌렀을 경우
+						System.out.println("영수증 출력 선택.");
+						makeRentData(rentTime, chargeVal, changeVal);
+
+						//로그인 후 대실정보 열람 기능 추가 예정.
+					} else{  //사용자가 Yes 이외의 값을 눌렀을 경우
+						System.out.println("영수증 출력 거부.");
+					}
+					//이용권을 당장 쓸 수도 있도록 하는 기능 추가
+					int answer3 = JOptionPane.showConfirmDialog(frame, selectedRoomNum + "번룸에서 이용권을 즉시 사용하시겠습니까?", "confirm", JOptionPane.YES_NO_OPTION );
+					if(answer3==JOptionPane.YES_OPTION){  //사용자가 yes를 눌렀을 경우
+						System.out.println("이용권 즉시 사용 선택. 메인으로 이동");
+						timeTicketUse = true;
+						MainStage ms = new MainStage();
+						ms.setVisible(true);
+						frame.setVisible(false);
+
+						//로그인 후 대실정보 열람 기능 추가 예정.
+					} else{  //사용자가 Yes 이외의 값을 눌렀을 경우
+						System.out.println("이용권 즉시 사용 거부.");
+					}
+				} else{  //사용자가 Yes 이외의 값을 눌렀을 경우
+					System.out.println("결제 취소.");
+				}
+				
 			}
 		});
 	}
