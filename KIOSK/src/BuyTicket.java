@@ -18,28 +18,7 @@ public class BuyTicket extends ShareData{
 	
 	public int ticketPrice = 0;
 	public String ticketName = null;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BuyTicket window = new BuyTicket();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the application.
-	 */
-	public BuyTicket() {
-		initialize();
-	}
 	
 	public void doBuyTicket(String name, int price) {
 		selectedTicketName = name;
@@ -48,10 +27,7 @@ public class BuyTicket extends ShareData{
 		btw.setVisible(true);
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	BuyTicket() {
 		frame = new JFrame();
 		frame.setBounds(0, 0, 1200, 800);
 		frame.setPreferredSize(new Dimension(1200, 800));

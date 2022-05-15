@@ -97,6 +97,10 @@ public class SignUp extends ShareData {
 		child.put("password", pass);
 		child.put("name", name);
 		child.put("phone", phone);
+		child.put("timeTicketUse", "false");
+		child.put("dayTicketUse", "false");
+		child.put("startTicketTime", "X");
+		child.put("rentRoomNum", "X");
 		accountArr.add(child);
 		
 		jsonObj.put("회원정보", accountArr);
@@ -360,7 +364,7 @@ public class SignUp extends ShareData {
 
 		cancelBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MainStage ms = new MainStage();
+				RoomStage ms = new RoomStage();
 				ms.setVisible(true);
 				frame.setVisible(false);
 			}

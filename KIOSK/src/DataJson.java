@@ -31,6 +31,11 @@ public class DataJson{
 		child.put("phone", "01082485327");
 		child.put("timeTicket", "10000");
 		child.put("dayTicket", "100");
+		child.put("timeTicketUse", "false");
+		child.put("dayTicketUse", "false");
+		child.put("startTicketTime", "X");
+		child.put("rentRoomNum", "X");
+
 		childrens.add(child);
 		
 		parent.put("회원정보", childrens);
@@ -42,10 +47,49 @@ public class DataJson{
 		child2.put("phone", "01012345678");
 		child2.put("timeTicket", "120");
 		child2.put("dayTicket", "3");
+		child2.put("timeTicketUse", "false");
+		child2.put("dayTicketUse", "false");
+		child2.put("startTicketTime", "X");
+		child2.put("rentRoomNum", "X");
+		
 		childrens.add(child2);
 		
 		parent.put("회원정보", childrens);
 		
+		JSONArray roomsArr = new JSONArray();
+		JSONObject roomsObj1 = new JSONObject();
+		JSONObject roomsObj2 = new JSONObject();
+		JSONObject roomsObj3 = new JSONObject();
+		JSONObject roomsObj4 = new JSONObject();
+		JSONObject roomsObj5 = new JSONObject();
+		JSONObject roomsObj6 = new JSONObject();
+		JSONObject roomsObj7 = new JSONObject();
+		JSONObject roomsObj8 = new JSONObject();
+		JSONObject roomsObj9 = new JSONObject();
+		JSONObject roomsObj10 = new JSONObject();
+		roomsObj1.put("room", "exist");
+		roomsObj2.put("room", "exist");
+		roomsObj3.put("room", "exist");
+		roomsObj4.put("room", "None");
+		roomsObj5.put("room", "exist");
+		roomsObj6.put("room", "None");
+		roomsObj7.put("room", "exist");
+		roomsObj8.put("room", "None");
+		roomsObj9.put("room", "exist");
+		roomsObj10.put("room", "exist");
+		
+		roomsArr.add(roomsObj1);
+		roomsArr.add(roomsObj2);
+		roomsArr.add(roomsObj3);
+		roomsArr.add(roomsObj4);
+		roomsArr.add(roomsObj5);
+		roomsArr.add(roomsObj6);
+		roomsArr.add(roomsObj7);
+		roomsArr.add(roomsObj8);
+		roomsArr.add(roomsObj9);
+		roomsArr.add(roomsObj10);
+		
+		parent.put("룸정보", roomsArr);
 		
 		JSONArray foodArr = new JSONArray();
 		JSONObject food = new JSONObject();

@@ -20,6 +20,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -37,31 +38,11 @@ public class BuyTicketWindow extends ShareData{
 
 	private JFrame frame;
 	private JTextField chargeField;
+	public boolean timeTicketBuy = false;
+	public boolean dayTicketBuy = false;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BuyTicketWindow window = new BuyTicketWindow();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the application.
-	 */
-	public BuyTicketWindow() {
-		initialize();
-	}
-	
-	public String makeRentTime() {
+	public String makeRentTime() {  // 영수증 출력에 찍힐 구매 시간 포맷팅
 		LocalDateTime now = LocalDateTime.now();
 		String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy년MM월dd일 HH시mm분ss초"));
 		System.out.println(formatedNow);
@@ -228,6 +209,8 @@ public class BuyTicketWindow extends ShareData{
 				obj.put("dayTicket", Integer.toString(changeDay));
 			}
 		}
+		
+		dayTicketBuy = true;
 
 		try { 
 			FileOutputStream fileOutputStream2 = new FileOutputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
@@ -261,6 +244,9 @@ public class BuyTicketWindow extends ShareData{
 				obj.put("timeTicket", Integer.toString(changeTime));
 			}
 		}
+		
+		timeTicketBuy = true;
+		
 		try { 
 			FileOutputStream fileOutputStream2 = new FileOutputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
 			OutputStreamWriter OutputStreamWriter2 = new OutputStreamWriter(fileOutputStream2, "utf-8");
@@ -275,10 +261,23 @@ public class BuyTicketWindow extends ShareData{
 		}
 	}
 	
+	public void ticketQuickUse() {
+		System.out.println("이용권 즉시 사용 선택. 메인으로 이동");
+		if (timeTicketBuy == true) {
+			timeTicketUse = true;
+		}
+		else if (dayTicketBuy == true) {
+			dayTicketUse = true;
+		}
+		RoomStage rs = new RoomStage();
+		rs.setVisible(true);
+		frame.setVisible(false);
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	public BuyTicketWindow() {
 		frame = new JFrame();
 		frame.setBounds(0, 0, 500, 500);
 		frame.setPreferredSize(new Dimension(500, 500));
@@ -427,17 +426,17 @@ public class BuyTicketWindow extends ShareData{
 						System.out.println("영수증 출력 거부.");
 					}
 					//이용권을 당장 쓸 수도 있도록 하는 기능 추가
-					int answer3 = JOptionPane.showConfirmDialog(frame, selectedRoomNum + "번룸에서 이용권을 즉시 사용하시겠습니까?", "confirm", JOptionPane.YES_NO_OPTION );
+					int answer3 = JOptionPane.showConfirmDialog(frame, "이용권을 즉시 사용하시겠습니까?", "confirm", JOptionPane.YES_NO_OPTION );
 					if(answer3==JOptionPane.YES_OPTION){  //사용자가 yes를 눌렀을 경우
-						System.out.println("이용권 즉시 사용 선택. 메인으로 이동");
-						timeTicketUse = true;
-						MainStage ms = new MainStage();
-						ms.setVisible(true);
-						frame.setVisible(false);
+						ticketQuickUse();
+						
 
 						//로그인 후 대실정보 열람 기능 추가 예정.
 					} else{  //사용자가 Yes 이외의 값을 눌렀을 경우
 						System.out.println("이용권 즉시 사용 거부.");
+						Ticket tk = new Ticket();
+						tk.setVisible(true);
+						frame.setVisible(false);
 					}
 				} else{  //사용자가 Yes 이외의 값을 눌렀을 경우
 					System.out.println("결제 취소.");

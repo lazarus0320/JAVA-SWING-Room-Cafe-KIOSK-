@@ -5,6 +5,10 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -17,39 +21,43 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 public class Ticket extends ShareData{
 
 	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Ticket window = new Ticket();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+	
+	public void checkRentTime() throws IOException, ParseException {
+		FileInputStream fileInputStream = new FileInputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
+		InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "utf-8");
+		BufferedReader file = new BufferedReader(inputStreamReader);
+		JSONParser parser = new JSONParser();
+		
+		JSONObject jsonObj = (JSONObject)parser.parse(file);
+		JSONArray accountArr = (JSONArray)jsonObj.get("회원정보");
+		
+		for (int i = 0; i < accountArr.size(); i++) {
+			JSONObject obj = (JSONObject)accountArr.get(i);
+			if (obj.get("name").equals(userName)) {
+				if (obj.get("startTicketTime").equals("X") == false) {
+					RoomStage rs = new RoomStage();
+					rs.setVisible(true);
+					frame.setVisible(false);
 				}
 			}
-		});
+		}
 	}
-	
-	
 
-	/**
-	 * Create the application.
-	 */
 	public Ticket() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+		try {
+			checkRentTime();
+		} catch (IOException | ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		frame = new JFrame();
 		frame.setBounds(0, 0, 1200, 800);
 		frame.setPreferredSize(new Dimension(1200, 800));
@@ -133,8 +141,18 @@ public class Ticket extends ShareData{
 		helpBtn.setBounds(32, 654, 67, 63);
 		panel.add(helpBtn);
 		
-		int hour = (Integer.parseInt(userTimeTicket)) / 60;
-		int min = (Integer.parseInt(userTimeTicket)) % 60;
+		int hour;
+		int min;
+		int day;
+		if (userTimeTicket != null) {
+			hour = (Integer.parseInt(userTimeTicket)) / 60;
+			min = (Integer.parseInt(userTimeTicket)) % 60;
+		}
+		else {
+			hour = 0;
+			min = 0;
+		}
+
 		if (hour < 10 && min < 10) {
 			timeLabel.setText("0"+ hour + ":" + "0" + min);
 		}
@@ -147,7 +165,13 @@ public class Ticket extends ShareData{
 		timeLabel.setText(hour + ":" + min);
 		}
 		
-		dayLabel.setText(userDayTicket + "일");
+		if (userDayTicket != null) {
+			day = Integer.parseInt(userDayTicket);
+		} else {
+			day = 0;
+		}
+		
+		dayLabel.setText(day + "일");
 		
 		timeBtn.addActionListener(new ActionListener() {
 			
@@ -157,20 +181,11 @@ public class Ticket extends ShareData{
 				
 				int answer = JOptionPane.showConfirmDialog(frame, "시간권을 사용하시겠습니까? 사용시 메인화면으로 이동됩니다.", "confirm",JOptionPane.YES_NO_OPTION );
 				if(answer==JOptionPane.YES_OPTION){  //사용자가 yes를 눌렀을 경우
-					System.out.println("시간권 사용, 메인 이동.");
+					System.out.println("시간권 사용, RoomStage 이동.");
 					timeTicketUse = true;
-					LocalDateTime now = LocalDateTime.now();
-					String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"));
-					System.out.println(formatedNow);
-					startTicketTime = formatedNow;
-					
-					Date date = new Date();
-					long timeMilli = date.getTime();
-					System.out.println(timeMilli);
-					startTimeMilli = timeMilli;
-					
-					MainStage ms = new MainStage();
-					ms.setVisible(true);
+	
+					RoomStage rs = new RoomStage();
+					rs.setVisible(true);
 					frame.setVisible(false);
 					
 				} else{  //사용자가 Yes 이외의 값을 눌렀을 경우
@@ -187,20 +202,11 @@ public class Ticket extends ShareData{
 				
 				int answer = JOptionPane.showConfirmDialog(frame, "기간권을 사용하시겠습니까? 사용시 메인화면으로 이동됩니다.", "confirm",JOptionPane.YES_NO_OPTION );
 				if(answer==JOptionPane.YES_OPTION){  //사용자가 yes를 눌렀을 경우
-					System.out.println("기간권 사용, 메인 이동.");
+					System.out.println("기간권 사용, RoomStage 이동.");
 					dayTicketUse = true;
-					LocalDateTime now = LocalDateTime.now();
-					String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"));
-					System.out.println(formatedNow);
-					startTicketTime = formatedNow;
 					
-					Date date = new Date();
-					long timeMilli = date.getTime();
-					System.out.println(timeMilli);
-					startTimeMilli = timeMilli;
-					
-					MainStage ms = new MainStage();
-					ms.setVisible(true);
+					RoomStage rs = new RoomStage();
+					rs.setVisible(true);
 					frame.setVisible(false);
 					
 				} else{  //사용자가 Yes 이외의 값을 눌렀을 경우
@@ -234,11 +240,11 @@ public class Ticket extends ShareData{
 				JOptionPane.showMessageDialog(frame, helpMsg, "도움말", JOptionPane.INFORMATION_MESSAGE );
 			}
 		});
-		
 	}
-
+		
 	public void setVisible(boolean b) {
 		// TODO Auto-generated method stub
 		frame.setVisible(b);
 	}
+	
 }

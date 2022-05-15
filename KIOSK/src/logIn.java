@@ -30,7 +30,7 @@ public class logIn extends ShareData{
 	private JTextField idField;
 	private JPasswordField passField;
 	
-
+	// 메인함수
 
 	/**
 	 * Launch the application.
@@ -182,7 +182,7 @@ public class logIn extends ShareData{
 					try {
 						try {
 							if(loginCheck(testId, testPass)) {
-								if (testId.equals("astar5327") && testPass.equals("astar5327")) {
+								if (testId.equals("admin0320") && testPass.equals("admin0320")) {
 									int answer = JOptionPane.showConfirmDialog(frame, "관리자 모드로 로그인 하시겠습니까?", "관리자 모드",JOptionPane.YES_NO_OPTION );
 									if(answer==JOptionPane.YES_OPTION){  //사용자가 yes를 눌렀을 경우
 										System.out.println("관리자 모드 접속");
