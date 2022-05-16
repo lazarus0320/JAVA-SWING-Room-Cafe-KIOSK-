@@ -1,5 +1,5 @@
 import java.sql.*;
-
+// sql로 데이터베이스를 받아오는 파일이지만 다른 방법을 채택하여 필요없어진 파일입니다.
 public class Database {
 	Connection con = null;
 	Statement stmt = null;

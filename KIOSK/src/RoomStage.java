@@ -438,6 +438,8 @@ public class RoomStage extends ShareData{
     		checkBtn.setText("퇴실 하기");
     		LineBorder tb = new LineBorder(Color.green, 5, true);
     		rooms[selectedRoomNum-1].setBorder(tb);
+    		title.setText("대실중입니다.");
+    		
     	}
 		
 		JButton orderBtn = new JButton("\uC74C\uC2DD\uC8FC\uBB38");
@@ -451,6 +453,10 @@ public class RoomStage extends ShareData{
 		checkBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	if (startTicketTime.equals("X") == false) {
+            		JOptionPane.showMessageDialog(null, "퇴실 기능입니다. 미구현.");
+            		return;
+            	}
             	for (int i = 0; i < rooms.length; i++) {
             		if (rooms[i].isSelected()) {
             			int answer = JOptionPane.showConfirmDialog(null, String.format("%d번 룸을 대실하시겠습니까?", i+1), "confirm", JOptionPane.YES_NO_OPTION);
@@ -484,6 +490,19 @@ public class RoomStage extends ShareData{
             	}
             		JOptionPane.showMessageDialog(null, "대실할 룸을 먼저 선택하세요.");
             }
+		});
+		
+		orderBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(startTicketTime.equals("X") == false) {
+					JOptionPane.showMessageDialog(null, "음식 주문 기능입니다. 미구현.");
+					return;
+				}
+				JOptionPane.showMessageDialog(null, "먼저 룸을 대실해야합니다.");
+			}
 		});
 	}
 	

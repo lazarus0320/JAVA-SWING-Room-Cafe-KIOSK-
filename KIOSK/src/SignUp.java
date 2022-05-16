@@ -42,28 +42,8 @@ public class SignUp extends ShareData {
 	public boolean passchecker1 = false;
 	public boolean passchecker2 = false;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SignUp window = new SignUp();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public SignUp() {
-		initialize();
-	}
+	
+	
 
 	public Boolean userCheck(String id) throws IOException, ParseException {
 		FileInputStream fileInputStream = new FileInputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
@@ -97,6 +77,8 @@ public class SignUp extends ShareData {
 		child.put("password", pass);
 		child.put("name", name);
 		child.put("phone", phone);
+		child.put("timeTicket", "0");
+		child.put("dayTicket", "0");
 		child.put("timeTicketUse", "false");
 		child.put("dayTicketUse", "false");
 		child.put("startTicketTime", "X");
@@ -118,10 +100,8 @@ public class SignUp extends ShareData {
 		}
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	public SignUp() {
+
 		frame = new JFrame();
 		frame.setBounds(0, 0, 1200, 800);
 		frame.setPreferredSize(new Dimension(1200, 800));

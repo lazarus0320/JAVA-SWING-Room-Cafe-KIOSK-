@@ -14,13 +14,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 public class DataJson{
+	// 데이터 JSON파일을 만들어주는 파일입니다. 데이터베이스 리셋용도로 사용합니다.
+	// 관리자 모드로 로그인시에 초기화 버튼을 누르면 이 클래스를 실행합니다.
 	JSONObject parent = new JSONObject();
 	DataJson() {
-		/* 경로 없을 경우 생성하는 방법 참고 https://ponyozzang.tistory.com/157
-		 * 생성자로 JSON을 초기화하는 기능은 관리자 모드 접속시에 데이터 초기화 버튼을 누르면 실행되도록 한다.
-		 * 맨 처음에는 JSON 자료만 공유해주고, DataJson 클래스는 관리자 모드를 완성하면 공유할 예정이다.
-		 * 
-		 */
 		
 		JSONArray childrens = new JSONArray();
 		
@@ -191,7 +188,7 @@ public class DataJson{
 		System.out.println("JSON 데이터 초기화 완료");
 	}
 	
-	void DataReset() {
+	void DataReset() { // 생성자로 만들어진 parent data를 json파일로 생성하는 메서드.
 		try { 
 			try {
 				// 디렉토리 생성

@@ -46,6 +46,12 @@ public class Ticket extends ShareData{
 					RoomStage rs = new RoomStage();
 					rs.setVisible(true);
 					frame.setVisible(false);
+				} else {
+					userTimeTicket = (String)obj.get("timeTicket");
+					userDayTicket = (String)obj.get("dayTicket");
+					System.out.println("userTimeTicket, userDayTicket 정보 불러옴");
+					System.out.println("userTimeTicket" + userTimeTicket);
+					System.out.println("userDayTicket" + userDayTicket);
 				}
 			}
 		}
@@ -144,7 +150,7 @@ public class Ticket extends ShareData{
 		int hour;
 		int min;
 		int day;
-		if (userTimeTicket != null) {
+		if (userTimeTicket.equals("0") == false) {
 			hour = (Integer.parseInt(userTimeTicket)) / 60;
 			min = (Integer.parseInt(userTimeTicket)) % 60;
 		}
@@ -165,7 +171,7 @@ public class Ticket extends ShareData{
 		timeLabel.setText(hour + ":" + min);
 		}
 		
-		if (userDayTicket != null) {
+		if (userDayTicket.equals("0") == false) {
 			day = Integer.parseInt(userDayTicket);
 		} else {
 			day = 0;
@@ -179,8 +185,12 @@ public class Ticket extends ShareData{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				int answer = JOptionPane.showConfirmDialog(frame, "시간권을 사용하시겠습니까? 사용시 메인화면으로 이동됩니다.", "confirm",JOptionPane.YES_NO_OPTION );
+				int answer = JOptionPane.showConfirmDialog(frame, "시간권을 사용하시겠습니까? 사용시 룸 선택 화면으로 이동됩니다.", "confirm",JOptionPane.YES_NO_OPTION );
 				if(answer==JOptionPane.YES_OPTION){  //사용자가 yes를 눌렀을 경우
+					if (userTimeTicket.equals("0")) {
+						JOptionPane.showMessageDialog(null, "보유한 시간권이 없습니다. 이용권을 구매해주세요.");
+						return;
+					}
 					System.out.println("시간권 사용, RoomStage 이동.");
 					timeTicketUse = true;
 	
@@ -200,8 +210,12 @@ public class Ticket extends ShareData{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				int answer = JOptionPane.showConfirmDialog(frame, "기간권을 사용하시겠습니까? 사용시 메인화면으로 이동됩니다.", "confirm",JOptionPane.YES_NO_OPTION );
+				int answer = JOptionPane.showConfirmDialog(frame, "기간권을 사용하시겠습니까? 사용시 룸 선택 화면으로 이동됩니다.", "confirm",JOptionPane.YES_NO_OPTION );
 				if(answer==JOptionPane.YES_OPTION){  //사용자가 yes를 눌렀을 경우
+					if (userDayTicket.equals("0")) {
+						JOptionPane.showMessageDialog(null, "보유한 기간권이 없습니다. 이용권을 구매해주세요.");
+						return;
+					}
 					System.out.println("기간권 사용, RoomStage 이동.");
 					dayTicketUse = true;
 					

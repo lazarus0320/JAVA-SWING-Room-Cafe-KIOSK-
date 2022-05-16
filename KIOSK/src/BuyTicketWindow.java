@@ -207,6 +207,7 @@ public class BuyTicketWindow extends ShareData{
 				String strDayTicketVal = (String)obj.get("dayTicket");
 				int changeDay = Integer.parseInt(strDayTicketVal) + day;
 				obj.put("dayTicket", Integer.toString(changeDay));
+				System.out.println("addTicketDay 메서드 값 : " + changeDay);
 			}
 		}
 		
@@ -242,6 +243,7 @@ public class BuyTicketWindow extends ShareData{
 				String strTimeTicketVal = (String)obj.get("timeTicket");
 				int changeTime = Integer.parseInt(strTimeTicketVal) + time;
 				obj.put("timeTicket", Integer.toString(changeTime));
+				System.out.println("addTicketTime 메서드 값 : " + changeTime);
 			}
 		}
 		
