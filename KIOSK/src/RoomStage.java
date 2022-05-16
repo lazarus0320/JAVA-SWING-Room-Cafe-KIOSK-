@@ -44,8 +44,9 @@ public class RoomStage extends ShareData{
 		for (int i = 0; i < accountArr.size(); i++) {
 			JSONObject obj = (JSONObject)accountArr.get(i);
 			roomState[i] = (String)obj.get("room");	
+			System.out.println(roomState[i]);
 		}
-		System.out.println(roomState);
+		
 		
 	}
 	
@@ -64,13 +65,13 @@ public class RoomStage extends ShareData{
 			if (obj.get("name").equals(userName)) {
 				startTicketTime = (String)obj.get("startTicketTime"); // 이용권 사용시간(밀리초)을 불러옴
 				if ((startTicketTime.equals("X") == false) && ((String)obj.get("timeTicketUse")).equals("true")) {
-					timeTicketUse = true;
+					timeTicketUse = "true";
 					String roomNumStr = (String)obj.get("rentRoomNum");
 					selectedRoomNum = Integer.parseInt(roomNumStr);
 					System.out.println("룸넘버" + selectedRoomNum);
 				}
 				else if ((startTicketTime.equals("X") == false) && ((String)obj.get("dayTicketUse")).equals("true")) {
-					dayTicketUse = true;
+					dayTicketUse = "true";
 					String roomNumStr = (String)obj.get("rentRoomNum");
 					selectedRoomNum = Integer.parseInt(roomNumStr);
 					System.out.println("룸넘버" + selectedRoomNum);
@@ -123,10 +124,10 @@ public class RoomStage extends ShareData{
 		for (int i = 0; i < accountArr.size(); i++) {
 			JSONObject obj = (JSONObject)accountArr.get(i);
 			if (obj.get("name").equals(userName)) {
-				if (timeTicketUse == true) {
+				if (timeTicketUse.equals("true")) {
 					obj.put("timeTicketUse", "true");
 				}
-				else if (dayTicketUse == true) {		
+				else if (dayTicketUse.equals("true")) {		
 					obj.put("dayTicketUse", "true");
 				}
 				Date date = new Date();
@@ -435,7 +436,7 @@ public class RoomStage extends ShareData{
 		panel.add(checkBtn);
 		
 		if (startTicketTime.equals("X") == false) {
-    		checkBtn.setText("퇴실 하기");
+    		checkBtn.setText("퇴실하기");
     		LineBorder tb = new LineBorder(Color.green, 5, true);
     		rooms[selectedRoomNum-1].setBorder(tb);
     		title.setText("대실중입니다.");

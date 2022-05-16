@@ -266,10 +266,10 @@ public class BuyTicketWindow extends ShareData{
 	public void ticketQuickUse() {
 		System.out.println("이용권 즉시 사용 선택. 메인으로 이동");
 		if (timeTicketBuy == true) {
-			timeTicketUse = true;
+			timeTicketUse = "true";
 		}
 		else if (dayTicketBuy == true) {
-			dayTicketUse = true;
+			dayTicketUse = "true";
 		}
 		RoomStage rs = new RoomStage();
 		rs.setVisible(true);

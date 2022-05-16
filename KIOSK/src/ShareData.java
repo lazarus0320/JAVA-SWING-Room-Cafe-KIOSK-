@@ -15,8 +15,8 @@ public class ShareData {
 	public static String startTicketTime = "X";
 	public static long startTimeMilli = 0;
 	
-	public static boolean timeTicketUse = false;
-	public static boolean dayTicketUse = false;
+	public static String timeTicketUse = "false";
+	public static String dayTicketUse = "false";
 	
 	
 	public static String selectedTicketName = null;

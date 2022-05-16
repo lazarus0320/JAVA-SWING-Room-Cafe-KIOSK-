@@ -56,11 +56,19 @@ public class logIn extends ShareData{
 		initialize();
 	}
 	
-	public void jsonDataMake() {
-		DataJson dj = new DataJson();
-		dj.DataReset();
-		dj.DataPrint();
+	public void ticketUseCheck() {
+		if (timeTicketUse.equals("true") || dayTicketUse.equals("true")){
+			RoomStage rs = new RoomStage();
+			rs.setVisible(true);
+			frame.setVisible(false);
+		} else {
+			Ticket tk = new Ticket();
+			tk.setVisible(true);
+			frame.setVisible(false);
+			return;
+		}
 	}
+	
 	
 	public Boolean loginCheck(String id, String pass) throws IOException, ParseException{
 		FileInputStream fileInputStream = new FileInputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
@@ -80,8 +88,10 @@ public class logIn extends ShareData{
 				userId = (String)obj.get("id");
 				userPass = (String)obj.get("password");
 				userPhone = (String)obj.get("phone");
-				userTimeTicket = (String) obj.get("timeTicket");
-				userDayTicket = (String)obj.get("dayTicket");
+				userTimeTicket = (String) obj.get("timeTicket");  // 시간권 시간
+				userDayTicket = (String)obj.get("dayTicket");	  // 기간권 시간
+				timeTicketUse = (String)obj.get("timeTicketUse");
+				dayTicketUse =  (String)obj.get("dayTicketUse");
 				
 				System.out.println(userName);
 				System.out.println(userId);
@@ -100,7 +110,7 @@ public class logIn extends ShareData{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		jsonDataMake();
+
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 0, 0));
 		frame.setBounds(0, 0, 1200, 800);
@@ -200,21 +210,18 @@ public class logIn extends ShareData{
 										return;
 									} else{  //사용자가 Yes 이외의 값을 눌렀을 경우
 										System.out.println("일반 로그인");
-										Ticket tk = new Ticket();
-										tk.setVisible(true);
-										frame.setVisible(false);
+										ticketUseCheck();
 										return;
 									}
 									
 								}
 								System.out.println("로그인 성공");
 								JOptionPane.showMessageDialog(null, userName + " 고객님, 환영합니다!");
-								Ticket tk = new Ticket();
-								tk.setVisible(true);
-								frame.setVisible(false);
+								ticketUseCheck();
 							} else {
 								System.out.println("로그인 실패 > 로그인 정보 불일치");
 								JOptionPane.showMessageDialog(null, "일치하는 회원 정보가 없습니다.");
+								return;
 							}
 						} catch (HeadlessException e1) {
 							// TODO Auto-generated catch block

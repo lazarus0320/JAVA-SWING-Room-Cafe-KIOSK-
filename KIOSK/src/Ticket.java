@@ -30,7 +30,7 @@ public class Ticket extends ShareData{
 
 	private JFrame frame;
 	
-	public void checkRentTime() throws IOException, ParseException {
+	public void checkRentTime() throws IOException, ParseException {  // 대실하지 않은 계정이 로그인 했을 경우, 새로운 계정이 Ticket 클래스에 접근할 경우, 또는 이용권 사놓고 즉시 사용 거부했을 경우에 계정이 소지한 이용권의 시간을 파싱함.
 		FileInputStream fileInputStream = new FileInputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
 		InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "utf-8");
 		BufferedReader file = new BufferedReader(inputStreamReader);
@@ -42,23 +42,26 @@ public class Ticket extends ShareData{
 		for (int i = 0; i < accountArr.size(); i++) {
 			JSONObject obj = (JSONObject)accountArr.get(i);
 			if (obj.get("name").equals(userName)) {
-				if (obj.get("startTicketTime").equals("X") == false) {
-					RoomStage rs = new RoomStage();
-					rs.setVisible(true);
-					frame.setVisible(false);
-				} else {
-					userTimeTicket = (String)obj.get("timeTicket");
-					userDayTicket = (String)obj.get("dayTicket");
-					System.out.println("userTimeTicket, userDayTicket 정보 불러옴");
-					System.out.println("userTimeTicket" + userTimeTicket);
-					System.out.println("userDayTicket" + userDayTicket);
-				}
+	
+				userTimeTicket = (String)obj.get("timeTicket");
+				userDayTicket = (String)obj.get("dayTicket");
+				System.out.println("userTimeTicket, userDayTicket 정보 불러옴");
+				System.out.println("userTimeTicket" + userTimeTicket);
+				System.out.println("userDayTicket" + userDayTicket);
 			}
 		}
 	}
+	
 
 	public Ticket() {
+		
 		frame = new JFrame();
+		try {
+			checkRentTime();
+		} catch (IOException | ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		frame.setBounds(0, 0, 1200, 800);
 		frame.setPreferredSize(new Dimension(1200, 800));
 		frame.setLocationRelativeTo(null);
@@ -66,12 +69,7 @@ public class Ticket extends ShareData{
 		frame.setTitle("Room Cafe KIOSK");
 		frame.setResizable(false);
 		frame.getContentPane().setLayout(null);
-		try {
-			checkRentTime();
-		} catch (IOException | ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
 		
 		
 		JPanel panel = new JPanel();
@@ -193,7 +191,7 @@ public class Ticket extends ShareData{
 						return;
 					}
 					System.out.println("시간권 사용, RoomStage 이동.");
-					timeTicketUse = true;
+					timeTicketUse = "true";
 	
 					RoomStage rs = new RoomStage();
 					rs.setVisible(true);
@@ -218,7 +216,7 @@ public class Ticket extends ShareData{
 						return;
 					}
 					System.out.println("기간권 사용, RoomStage 이동.");
-					dayTicketUse = true;
+					dayTicketUse = "true";
 					
 					RoomStage rs = new RoomStage();
 					rs.setVisible(true);

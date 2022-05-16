@@ -1,6 +1,5 @@
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -344,8 +343,8 @@ public class SignUp extends ShareData {
 
 		cancelBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RoomStage ms = new RoomStage();
-				ms.setVisible(true);
+				logIn log = new logIn();
+				log.setVisible(true);
 				frame.setVisible(false);
 			}
 		});

@@ -190,74 +190,43 @@ public class DataJson extends ShareData{
 	}
 	
 	void DataReset() { // 생성자로 만들어진 parent data를 json파일로 생성하는 메서드.
-		try { 
-			try {
-				// 디렉토리 생성
-				Path directoryPath = Paths.get("C:\\KIOSK");
-				Files.createDirectory(directoryPath);
-				System.out.println(directoryPath + " 디렉토리가 생성되었습니다.");
-				} catch (FileAlreadyExistsException e) {
-				System.out.println("디렉토리가 이미 존재합니다. 데이터 파일이 이미 존재합니다.");
-				if (resetClicked == false) {
-					return;
-					}
-				}
-				} catch (NoSuchFileException e) {
-				System.out.println("디렉토리 경로가 존재하지 않습니다");
-				}catch (IOException e) {
-				e.printStackTrace();
-				}
-			try {
-				// 디렉토리 생성
-				Path directoryPath = Paths.get("C:\\KIOSK\\KIOSK_USER");
-				Files.createDirectory(directoryPath);
-				System.out.println(directoryPath + " 디렉토리가 생성되었습니다.");
-				} catch (FileAlreadyExistsException e) {
-				System.out.println("디렉토리가 이미 존재합니다. 데이터 파일이 이미 존재합니다.");
-				return;
-				} catch (NoSuchFileException e) {
-				System.out.println("디렉토리 경로가 존재하지 않습니다");
-				}catch (IOException e) {
-				e.printStackTrace();
-				}
+
 			
-			
-			
-			FileOutputStream fileOutputStream = null;
-			try {
-				fileOutputStream = new FileOutputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
-			} catch (FileNotFoundException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
-			OutputStreamWriter OutputStreamWriter = null;
-			try {
-				OutputStreamWriter = new OutputStreamWriter(fileOutputStream, "utf-8");
-			} catch (UnsupportedEncodingException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
-			BufferedWriter file = new BufferedWriter(OutputStreamWriter);
-			
-			System.out.println("JSON 데이터 초기화 완료");
-			try {
-				file.write(parent.toJSONString());
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} 
-			try {
-				file.flush();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-			try {
-				file.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
+		FileOutputStream fileOutputStream = null;
+		try {
+			fileOutputStream = new FileOutputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
+		} catch (FileNotFoundException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		OutputStreamWriter OutputStreamWriter = null;
+		try {
+			OutputStreamWriter = new OutputStreamWriter(fileOutputStream, "utf-8");
+		} catch (UnsupportedEncodingException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		BufferedWriter file = new BufferedWriter(OutputStreamWriter);
+		
+		System.out.println("JSON 데이터 초기화 완료");
+		try {
+			file.write(parent.toJSONString());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		try {
+			file.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		try {
+			file.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 
 	}
 }
