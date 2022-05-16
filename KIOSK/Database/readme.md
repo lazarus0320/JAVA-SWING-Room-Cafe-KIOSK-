@@ -1,2 +1,1 @@
-DataJson파일의 경로는 C:\KIOSK\KIOSK_USER 에 존재하도록 한다.
-소스 돌리기 전에 먼저 경로대로 폴더를 생성해 줘야한다.
+DataJson파일의 경로는 C:\KIOSK\KIOSK_USER에 존재한다. 프로그램 실행시 자동으로 경로에 데이터베이스를 구축한다.
