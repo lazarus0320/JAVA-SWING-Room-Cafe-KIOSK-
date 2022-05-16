@@ -246,7 +246,7 @@ public class BuyTicketWindow extends ShareData{
 				System.out.println("addTicketTime 메서드 값 : " + changeTime);
 			}
 		}
-		
+		//
 		timeTicketBuy = true;
 		
 		try { 

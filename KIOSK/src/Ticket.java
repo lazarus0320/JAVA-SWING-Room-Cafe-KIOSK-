@@ -35,7 +35,7 @@ public class Ticket extends ShareData{
 		InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "utf-8");
 		BufferedReader file = new BufferedReader(inputStreamReader);
 		JSONParser parser = new JSONParser();
-		
+		//
 		JSONObject jsonObj = (JSONObject)parser.parse(file);
 		JSONArray accountArr = (JSONArray)jsonObj.get("회원정보");
 		

@@ -33,7 +33,7 @@ public class DataJson extends ShareData{
 		child.put("dayTicketUse", "false");
 		child.put("startTicketTime", "X");
 		child.put("rentRoomNum", "X");
-
+//
 		childrens.add(child);
 		
 		parent.put("회원정보", childrens);

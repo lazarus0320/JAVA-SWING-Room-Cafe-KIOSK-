@@ -140,7 +140,7 @@ public class logIn extends ShareData{
 		passLabel.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 25));
 		passLabel.setBounds(55, 184, 80, 51);
 		panel.add(passLabel);
-		
+		//
 		idField = new JTextField();
 		idField.setBounds(160, 115, 250, 40);
 		panel.add(idField);

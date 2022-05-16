@@ -11,7 +11,7 @@ public class ShareData {
 	public static String userPhone = null;
 	public static String userTimeTicket = null;
 	public static String userDayTicket = null;
-	
+	//
 	public static String startTicketTime = "X";
 	public static long startTimeMilli = 0;
 	

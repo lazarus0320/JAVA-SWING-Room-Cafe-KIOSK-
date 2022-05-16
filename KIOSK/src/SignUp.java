@@ -336,7 +336,7 @@ public class SignUp extends ShareData {
 				
 			}
 		};
-		
+		//
 		passField.addKeyListener(passkey);
 		pass2Field.addKeyListener(passkey2);
 		idField.addKeyListener(idkey);

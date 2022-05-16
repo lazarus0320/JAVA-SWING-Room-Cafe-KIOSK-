@@ -16,7 +16,7 @@ public class Admin extends ShareData{
 
 	private JFrame frame;
 
-
+//
 	public Admin() {
 
 		frame = new JFrame();

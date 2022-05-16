@@ -140,7 +140,7 @@ public class RoomStage extends ShareData{
 			FileOutputStream fileOutputStream2 = new FileOutputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
 			OutputStreamWriter OutputStreamWriter2 = new OutputStreamWriter(fileOutputStream2, "utf-8");
 			BufferedWriter file2 = new BufferedWriter(OutputStreamWriter2);
-			
+			//
 			System.out.println(jsonObj.toJSONString());
 			file2.write(jsonObj.toJSONString()); 
 			file2.flush(); 

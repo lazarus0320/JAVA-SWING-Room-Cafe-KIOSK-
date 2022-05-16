@@ -18,7 +18,7 @@ public class BuyTicket extends ShareData{
 	
 	public int ticketPrice = 0;
 	public String ticketName = null;
-
+//
 	
 	public void doBuyTicket(String name, int price) {
 		selectedTicketName = name;
