@@ -403,7 +403,8 @@ public class SignUp extends ShareData {
 					
 					
 					// DataJson에 회원정보 추가해서 쓰기
-					logIn login = new logIn();
+					logIn login;
+					login = new logIn();
 					login.setVisible(true);
 					frame.setVisible(false);
 				} else {

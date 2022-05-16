@@ -396,7 +396,9 @@ public class BuyTicketWindow extends ShareData{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				frame.dispose();
+				Ticket tk = new Ticket();
+				tk.setVisible(true);
+				frame.setVisible(false);
 			}
 		});
 		

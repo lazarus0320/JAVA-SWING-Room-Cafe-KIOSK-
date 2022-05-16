@@ -1,8 +1,10 @@
 
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -11,9 +13,8 @@ import java.nio.file.Paths;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
 
-public class DataJson{
+public class DataJson extends ShareData{
 	// 데이터 JSON파일을 만들어주는 파일입니다. 데이터베이스 리셋용도로 사용합니다.
 	// 관리자 모드로 로그인시에 초기화 버튼을 누르면 이 클래스를 실행합니다.
 	JSONObject parent = new JSONObject();
@@ -185,18 +186,35 @@ public class DataJson{
 	}
 	void DataPrint() {
 		System.out.println(parent.toString());
-		System.out.println("JSON 데이터 초기화 완료");
+		System.out.println("JSON 데이터 열람 완료");
 	}
 	
 	void DataReset() { // 생성자로 만들어진 parent data를 json파일로 생성하는 메서드.
 		try { 
 			try {
 				// 디렉토리 생성
+				Path directoryPath = Paths.get("C:\\KIOSK");
+				Files.createDirectory(directoryPath);
+				System.out.println(directoryPath + " 디렉토리가 생성되었습니다.");
+				} catch (FileAlreadyExistsException e) {
+				System.out.println("디렉토리가 이미 존재합니다. 데이터 파일이 이미 존재합니다.");
+				if (resetClicked == false) {
+					return;
+					}
+				}
+				} catch (NoSuchFileException e) {
+				System.out.println("디렉토리 경로가 존재하지 않습니다");
+				}catch (IOException e) {
+				e.printStackTrace();
+				}
+			try {
+				// 디렉토리 생성
 				Path directoryPath = Paths.get("C:\\KIOSK\\KIOSK_USER");
 				Files.createDirectory(directoryPath);
 				System.out.println(directoryPath + " 디렉토리가 생성되었습니다.");
 				} catch (FileAlreadyExistsException e) {
-				System.out.println("디렉토리가 이미 존재합니다");
+				System.out.println("디렉토리가 이미 존재합니다. 데이터 파일이 이미 존재합니다.");
+				return;
 				} catch (NoSuchFileException e) {
 				System.out.println("디렉토리 경로가 존재하지 않습니다");
 				}catch (IOException e) {
@@ -204,15 +222,42 @@ public class DataJson{
 				}
 			
 			
-			FileOutputStream fileOutputStream = new FileOutputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
-			OutputStreamWriter OutputStreamWriter = new OutputStreamWriter(fileOutputStream, "utf-8");
+			
+			FileOutputStream fileOutputStream = null;
+			try {
+				fileOutputStream = new FileOutputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
+			} catch (FileNotFoundException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			OutputStreamWriter OutputStreamWriter = null;
+			try {
+				OutputStreamWriter = new OutputStreamWriter(fileOutputStream, "utf-8");
+			} catch (UnsupportedEncodingException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 			BufferedWriter file = new BufferedWriter(OutputStreamWriter);
 			
-			file.write(parent.toJSONString()); 
-			file.flush(); 
-			file.close(); 
-		} catch (IOException e) { 
-			e.printStackTrace(); 
-		}
+			System.out.println("JSON 데이터 초기화 완료");
+			try {
+				file.write(parent.toJSONString());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} 
+			try {
+				file.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			try {
+				file.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+
 	}
 }

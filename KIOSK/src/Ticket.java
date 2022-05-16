@@ -58,12 +58,6 @@ public class Ticket extends ShareData{
 	}
 
 	public Ticket() {
-		try {
-			checkRentTime();
-		} catch (IOException | ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		frame = new JFrame();
 		frame.setBounds(0, 0, 1200, 800);
 		frame.setPreferredSize(new Dimension(1200, 800));
@@ -72,6 +66,13 @@ public class Ticket extends ShareData{
 		frame.setTitle("Room Cafe KIOSK");
 		frame.setResizable(false);
 		frame.getContentPane().setLayout(null);
+		try {
+			checkRentTime();
+		} catch (IOException | ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.desktop);

@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
 
-public class Admin {
+public class Admin extends ShareData{
 
 	private JFrame frame;
 
@@ -49,9 +49,11 @@ public class Admin {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				resetClicked = true;
 				DataJson data = new DataJson();  // JSON 데이터 초기화
 				data.DataReset();
 				data.DataPrint();
+				resetClicked = false;
 			}
 		});
 	}

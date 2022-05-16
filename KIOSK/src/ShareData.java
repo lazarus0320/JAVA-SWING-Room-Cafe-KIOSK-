@@ -21,4 +21,6 @@ public class ShareData {
 	
 	public static String selectedTicketName = null;
 	public static int selectedTicketPrice = 0;
+	
+	public static boolean resetClicked = false;
 }

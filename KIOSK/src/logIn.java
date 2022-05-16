@@ -24,6 +24,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+
 public class logIn extends ShareData{
 
 	private JFrame frame;
@@ -51,8 +52,14 @@ public class logIn extends ShareData{
 	/**
 	 * Create the application.
 	 */
-	public logIn() {
+	public logIn(){
 		initialize();
+	}
+	
+	public void jsonDataMake() {
+		DataJson dj = new DataJson();
+		dj.DataReset();
+		dj.DataPrint();
 	}
 	
 	public Boolean loginCheck(String id, String pass) throws IOException, ParseException{
@@ -93,6 +100,7 @@ public class logIn extends ShareData{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		jsonDataMake();
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 0, 0));
 		frame.setBounds(0, 0, 1200, 800);
