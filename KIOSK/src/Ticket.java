@@ -26,38 +26,41 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+// ì´ìš©ê¶Œ ë³´ìœ  í™”ë©´ í´ë˜ìŠ¤
 public class Ticket extends ShareData{
 
 	private JFrame frame;
-	
-	public void checkRentTime() throws IOException, ParseException {  // ´ë½ÇÇÏÁö ¾ÊÀº °èÁ¤ÀÌ ·Î±×ÀÎ ÇßÀ» °æ¿ì, »õ·Î¿î °èÁ¤ÀÌ Ticket Å¬·¡½º¿¡ Á¢±ÙÇÒ °æ¿ì, ¶Ç´Â ÀÌ¿ë±Ç »ç³õ°í Áï½Ã »ç¿ë °ÅºÎÇßÀ» °æ¿ì¿¡ °èÁ¤ÀÌ ¼ÒÁöÇÑ ÀÌ¿ë±ÇÀÇ ½Ã°£À» ÆÄ½ÌÇÔ.
+	//
+	public void checkRentTime() throws IOException, ParseException {  // íšŒì›ì˜ ì‹œê°„ê¶Œ , ê¸°ê°„ê¶Œ ëˆ„ì í•© ì •ë³´ë¥¼ JSONìœ¼ë¡œë¶€í„° íŒŒì‹±í•´ì˜¤ëŠ” ë©”ì„œë“œ
+		// JSON íŒŒì¼ ì˜¤í”ˆ
 		FileInputStream fileInputStream = new FileInputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
 		InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "utf-8");
 		BufferedReader file = new BufferedReader(inputStreamReader);
-		JSONParser parser = new JSONParser();
-		//
-		JSONObject jsonObj = (JSONObject)parser.parse(file);
-		JSONArray accountArr = (JSONArray)jsonObj.get("È¸¿øÁ¤º¸");
 		
+		// objectí˜•íƒœë¡œ JSON ì „ì²´ ë°ì´í„°ë¥¼ íŒŒì‹±. ê·¸ ì•ˆì˜ íšŒì›ì •ë³´ì˜ valueê°’ì„ Arrayí˜•íƒœë¡œ ë°›ìŒ.
+		JSONParser parser = new JSONParser();
+		JSONObject jsonObj = (JSONObject)parser.parse(file);
+		JSONArray accountArr = (JSONArray)jsonObj.get("íšŒì›ì •ë³´");
+		
+		// ë°°ì—´ ë‚´ë¶€ì˜ mapì„ objectí˜•íƒœë¡œ ë°›ê³  ë¡œê·¸ì¸í•œ íšŒì›ì˜ ì´ë¦„ê³¼ ê°™ì€ ë°°ì—´ì„ ì„ íƒí•¨.
 		for (int i = 0; i < accountArr.size(); i++) {
 			JSONObject obj = (JSONObject)accountArr.get(i);
 			if (obj.get("name").equals(userName)) {
-	
-				userTimeTicket = (String)obj.get("timeTicket");
-				userDayTicket = (String)obj.get("dayTicket");
-				System.out.println("userTimeTicket, userDayTicket Á¤º¸ ºÒ·¯¿È");
+				userTimeTicket = (String)obj.get("timeTicket");  // íšŒì›ì˜ ë³´ìœ  ì‹œê°„ê¶Œ ëˆ„ì í•©
+				userDayTicket = (String)obj.get("dayTicket");	 // íšŒì›ì˜ ë³´ìœ  ê¸°ê°„ê¶Œ ëˆ„ì í•©
+				System.out.println("userTimeTicket, userDayTicket ì •ë³´ ë¶ˆëŸ¬ì˜´");
 				System.out.println("userTimeTicket" + userTimeTicket);
 				System.out.println("userDayTicket" + userDayTicket);
 			}
 		}
 	}
-	
+	//
 
 	public Ticket() {
 		
 		frame = new JFrame();
 		try {
-			checkRentTime();
+			checkRentTime();	// ë¡œê·¸ì¸ í•œ íšŒì›ì˜ JSON ë°ì´í„°ì— ì ‘ê·¼í•´ ë³´ìœ í•œ ì‹œê°„ê¶Œê³¼ ê¸°ê°„ê¶Œì˜ ëˆ„ì í•©ì„ íŒŒì‹±í•˜ëŠ” í•¨ìˆ˜
 		} catch (IOException | ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -80,7 +83,7 @@ public class Ticket extends ShareData{
 		
 		JLabel lblNewLabel = new JLabel("\uBCF4\uC720 \uC774\uC6A9\uAD8C \uC120\uD0DD");
 		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 50));
+		lblNewLabel.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 50));
 		lblNewLabel.setBounds(396, 35, 537, 84);
 		panel.add(lblNewLabel);
 		
@@ -91,19 +94,19 @@ public class Ticket extends ShareData{
 		timePanel.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("\uC794\uC5EC \uC2DC\uAC04\uAD8C");
-		lblNewLabel_1.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 40));
+		lblNewLabel_1.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 40));
 		lblNewLabel_1.setBounds(95, 26, 247, 40);
 		timePanel.add(lblNewLabel_1);
 		
 		JLabel timeLabel = new JLabel("00:00");
 		timeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		timeLabel.setFont(new Font("±¼¸²", Font.BOLD, 70));
+		timeLabel.setFont(new Font("êµ´ë¦¼", Font.BOLD, 70));
 		timeLabel.setBounds(44, 170, 304, 79);
 		timePanel.add(timeLabel);
 		
 		JButton timeBtn = new JButton("\uC0AC\uC6A9\uD558\uAE30");
 		timeBtn.setFocusPainted(false);
-		timeBtn.setFont(new Font("±¼¸²", Font.PLAIN, 25));
+		timeBtn.setFont(new Font("êµ´ë¦¼", Font.PLAIN, 25));
 		timeBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -118,116 +121,125 @@ public class Ticket extends ShareData{
 		dayPanel.setLayout(null);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("\uC794\uC5EC \uAE30\uAC04\uAD8C");
-		lblNewLabel_1_1.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 40));
+		lblNewLabel_1_1.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 40));
 		lblNewLabel_1_1.setBounds(95, 25, 223, 40);
 		dayPanel.add(lblNewLabel_1_1);
 		
 		JLabel dayLabel = new JLabel("0\uC77C");
 		dayLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		dayLabel.setFont(new Font("±¼¸²", Font.BOLD, 70));
+		dayLabel.setFont(new Font("êµ´ë¦¼", Font.BOLD, 70));
 		dayLabel.setBounds(102, 170, 209, 79);
 		dayPanel.add(dayLabel);
 		
 		JButton dayBtn = new JButton("\uC0AC\uC6A9\uD558\uAE30");
 		dayBtn.setFocusPainted(false);
-		dayBtn.setFont(new Font("±¼¸²", Font.PLAIN, 25));
+		dayBtn.setFont(new Font("êµ´ë¦¼", Font.PLAIN, 25));
 		dayBtn.setBounds(30, 320, 340, 54);
 		dayPanel.add(dayBtn);
 		
 		JButton buyBtn = new JButton("\uC774\uC6A9\uAD8C \uAD6C\uB9E4");
 		buyBtn.setFocusPainted(false);
-		buyBtn.setFont(new Font("±¼¸²", Font.BOLD, 35));
+		buyBtn.setFont(new Font("êµ´ë¦¼", Font.BOLD, 35));
 		buyBtn.setBounds(410, 633, 365, 84);
 		panel.add(buyBtn);
 		
 		JButton helpBtn = new JButton("?");
 		helpBtn.setFocusPainted(false);
-		helpBtn.setFont(new Font("±¼¸²", Font.BOLD, 35));
+		helpBtn.setFont(new Font("êµ´ë¦¼", Font.BOLD, 35));
 		helpBtn.setBounds(32, 654, 67, 63);
 		panel.add(helpBtn);
 		
-		int hour;
-		int min;
-		int day;
-		if (userTimeTicket.equals("0") == false) {
-			hour = (Integer.parseInt(userTimeTicket)) / 60;
-			min = (Integer.parseInt(userTimeTicket)) % 60;
+		
+		// ì‹œê°„ê¶Œ ëˆ„ì í•©ì„ í™”ë©´ì— ì¶œë ¥í•˜ê¸°
+		int hour, min, day;
+		if (userTimeTicket.equals("0") == false) { // íŒŒì‹±ìœ¼ë¡œ ë°›ì•„ì˜¨ íšŒì›ì˜ ì‹œê°„ê¶Œ ëˆ„ì í•©ì´ 0ì´ ì•„ë‹ë•Œ
+			hour = (Integer.parseInt(userTimeTicket)) / 60; 	// ì‹œê°„
+			min = (Integer.parseInt(userTimeTicket)) % 60;		// ë¶„
+			// Stringí˜•ìœ¼ë¡œ ì €ì¥ë˜ì–´ ìˆë˜ userTimeTicketì„ ì •ìˆ˜í˜•ìœ¼ë¡œ í˜•ë³€í™˜í–ˆìŒ.
 		}
-		else {
+		else {	// íŒŒì‹±ìœ¼ë¡œ ë°›ì•„ì˜¨ íšŒì›ì˜ ì‹œê°„ê¶Œ ëˆ„ì í•©ì´ 0ì¼ ë•Œ.
 			hour = 0;
 			min = 0;
 		}
-
-		if (hour < 10 && min < 10) {
+		
+		if (hour < 10 && min < 10) {	// ì‹œê°„, ë¶„ ëª¨ë‘ 10ë¶„ ì´í•˜ì¼ë•Œ 0x:0x í˜•íƒœë¡œ í‘œì‹œë˜ë„ë¡ í•¨.
 			timeLabel.setText("0"+ hour + ":" + "0" + min);
 		}
-		else if (hour < 10 && min >= 10) {
+		else if (hour < 10 && min >= 10) {	// 0x:xx
 			timeLabel.setText("0"+ hour + ":" + min);
 		}
-		else if (hour >= 10 && min < 10) {
+		else if (hour >= 10 && min < 10) {	// xx:0x
 			timeLabel.setText(hour + ":" + "0" + min);
-		} else {
+		} else {							// xx:xx
 		timeLabel.setText(hour + ":" + min);
 		}
 		
+		
+		// ê¸°ê°„ê¶Œ ëˆ„ì í•©ì„ í™”ë©´ì— ì¶œë ¥í•˜ê¸°
 		if (userDayTicket.equals("0") == false) {
 			day = Integer.parseInt(userDayTicket);
 		} else {
 			day = 0;
 		}
 		
-		dayLabel.setText(day + "ÀÏ");
+		dayLabel.setText(day + "ì¼");	// xì¼
 		
+		
+		// ì‹œê°„ê¶Œ ì‚¬ìš© ë²„íŠ¼ í´ë¦­ ì´ë²¤íŠ¸ ë¦¬ìŠ¤ë„ˆ ì„¤ì •
 		timeBtn.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				int answer = JOptionPane.showConfirmDialog(frame, "½Ã°£±ÇÀ» »ç¿ëÇÏ½Ã°Ú½À´Ï±î? »ç¿ë½Ã ·ë ¼±ÅÃ È­¸éÀ¸·Î ÀÌµ¿µË´Ï´Ù.", "confirm",JOptionPane.YES_NO_OPTION );
-				if(answer==JOptionPane.YES_OPTION){  //»ç¿ëÀÚ°¡ yes¸¦ ´­·¶À» °æ¿ì
+				int answer = JOptionPane.showConfirmDialog(frame, "ì‹œê°„ê¶Œì„ ì‚¬ìš©í•˜ì‹œê² ìŠµë‹ˆê¹Œ? ì‚¬ìš©ì‹œ ë£¸ ì„ íƒ í™”ë©´ìœ¼ë¡œ ì´ë™ë©ë‹ˆë‹¤.", "confirm",JOptionPane.YES_NO_OPTION );
+				if(answer==JOptionPane.YES_OPTION){  //ì‚¬ìš©ìê°€ yesë¥¼ ëˆŒë €ì„ ê²½ìš°
 					if (userTimeTicket.equals("0")) {
-						JOptionPane.showMessageDialog(null, "º¸À¯ÇÑ ½Ã°£±ÇÀÌ ¾ø½À´Ï´Ù. ÀÌ¿ë±ÇÀ» ±¸¸ÅÇØÁÖ¼¼¿ä.");
+						JOptionPane.showMessageDialog(null, "ë³´ìœ í•œ ì‹œê°„ê¶Œì´ ì—†ìŠµë‹ˆë‹¤. ì´ìš©ê¶Œì„ êµ¬ë§¤í•´ì£¼ì„¸ìš”.");
 						return;
 					}
-					System.out.println("½Ã°£±Ç »ç¿ë, RoomStage ÀÌµ¿.");
-					timeTicketUse = "true";
+					System.out.println("ì‹œê°„ê¶Œ ì‚¬ìš©, RoomStage ì´ë™.");
+					timeTicketUse = "true";		// ì‹œê°„ê¶Œ ì‚¬ìš© static í•¨ìˆ˜ë¥¼ trueë¡œ ì „í™˜í•¨.
 	
-					RoomStage rs = new RoomStage();
+					RoomStage rs = new RoomStage();	// ë£¸ ì„ íƒ í™”ë©´ í´ë˜ìŠ¤ í˜¸ì¶œ.
 					rs.setVisible(true);
 					frame.setVisible(false);
 					
-				} else{  //»ç¿ëÀÚ°¡ Yes ÀÌ¿ÜÀÇ °ªÀ» ´­·¶À» °æ¿ì
-					System.out.println("Ãë¼Ò.");
+				} else{  //ì‚¬ìš©ìê°€ Yes ì´ì™¸ì˜ ê°’ì„ ëˆŒë €ì„ ê²½ìš°
+					System.out.println("ì·¨ì†Œ.");
 				}
 			}
 		});
 		
+		
+		// ê¸°ê°„ê¶Œ ì‚¬ìš© ë²„íŠ¼ í´ë¦­ ì´ë²¤íŠ¸ ë¦¬ìŠ¤ë„ˆ ì„¤ì •
 		dayBtn.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				int answer = JOptionPane.showConfirmDialog(frame, "±â°£±ÇÀ» »ç¿ëÇÏ½Ã°Ú½À´Ï±î? »ç¿ë½Ã ·ë ¼±ÅÃ È­¸éÀ¸·Î ÀÌµ¿µË´Ï´Ù.", "confirm",JOptionPane.YES_NO_OPTION );
-				if(answer==JOptionPane.YES_OPTION){  //»ç¿ëÀÚ°¡ yes¸¦ ´­·¶À» °æ¿ì
+				int answer = JOptionPane.showConfirmDialog(frame, "ê¸°ê°„ê¶Œì„ ì‚¬ìš©í•˜ì‹œê² ìŠµë‹ˆê¹Œ? ì‚¬ìš©ì‹œ ë£¸ ì„ íƒ í™”ë©´ìœ¼ë¡œ ì´ë™ë©ë‹ˆë‹¤.", "confirm",JOptionPane.YES_NO_OPTION );
+				if(answer==JOptionPane.YES_OPTION){  //ì‚¬ìš©ìê°€ yesë¥¼ ëˆŒë €ì„ ê²½ìš°
 					if (userDayTicket.equals("0")) {
-						JOptionPane.showMessageDialog(null, "º¸À¯ÇÑ ±â°£±ÇÀÌ ¾ø½À´Ï´Ù. ÀÌ¿ë±ÇÀ» ±¸¸ÅÇØÁÖ¼¼¿ä.");
+						JOptionPane.showMessageDialog(null, "ë³´ìœ í•œ ê¸°ê°„ê¶Œì´ ì—†ìŠµë‹ˆë‹¤. ì´ìš©ê¶Œì„ êµ¬ë§¤í•´ì£¼ì„¸ìš”.");
 						return;
 					}
-					System.out.println("±â°£±Ç »ç¿ë, RoomStage ÀÌµ¿.");
-					dayTicketUse = "true";
+					System.out.println("ê¸°ê°„ê¶Œ ì‚¬ìš©, RoomStage ì´ë™.");
+					dayTicketUse = "true";	// ê¸°ê°„ê¶Œ ì‚¬ìš© static í•¨ìˆ˜ë¥¼ trueë¡œ ì „í™˜í•¨.
 					
-					RoomStage rs = new RoomStage();
+					RoomStage rs = new RoomStage();  // ë£¸ ì„ íƒ í™”ë©´ í´ë˜ìŠ¤ í˜¸ì¶œ.
 					rs.setVisible(true);
 					frame.setVisible(false);
 					
-				} else{  //»ç¿ëÀÚ°¡ Yes ÀÌ¿ÜÀÇ °ªÀ» ´­·¶À» °æ¿ì
-					System.out.println("Ãë¼Ò.");
+				} else{  //ì‚¬ìš©ìê°€ Yes ì´ì™¸ì˜ ê°’ì„ ëˆŒë €ì„ ê²½ìš°
+					System.out.println("ì·¨ì†Œ.");
 				}
 			}
 		});
 		
+		
+		// ì´ìš©ê¶Œ êµ¬ë§¤ ë²„íŠ¼ í´ë¦­ ì´ë²¤íŠ¸ ë¦¬ìŠ¤ë„ˆ ì„¤ì •
 		buyBtn.addActionListener(new ActionListener() {
 			
 			@Override
@@ -240,22 +252,24 @@ public class Ticket extends ShareData{
 			}
 		});
 		
+		
+		// ë„ì›€ë§ ë²„íŠ¼ í´ë¦­ ì´ë²¤íŠ¸ ë¦¬ìŠ¤ë„ˆ ì„¤ì •
 		helpBtn.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JTextArea helpMsg = new JTextArea("½Ã°£±ÇÀº ºĞ ´ÜÀ§·Î ·ëÄ«Æä¸¦ ÀÌ¿ëÇÒ ¼ö ÀÖ´Â ÀÌ¿ë±ÇÀÔ´Ï´Ù. \n"
-						+ "Åğ½Ç½Ã¿¡ ³²Àº ½Ã°£ÀÌ ÀúÀåµË´Ï´Ù.\n"
-						+ "±â°£±ÇÀº ÀÏ ´ÜÀ§·Î ·ëÄ«Æä¸¦ ÀÌ¿ëÇÒ ¼ö ÀÖ´Â ÀÌ¿ë±ÇÀÔ´Ï´Ù.\n"
-						+ "24½Ã°£ ÀÌ¿ë °¡´ÉÇÏ³ª, Áßµµ Åğ½Ç½Ã ÇÏ·ç ´ÜÀ§·Î ¼Ò¸êµË´Ï´Ù.");
-				helpMsg.setFont(new Font("±¼¸²", Font.BOLD, 20));
+				JTextArea helpMsg = new JTextArea("ì‹œê°„ê¶Œì€ ë¶„ ë‹¨ìœ„ë¡œ ë£¸ì¹´í˜ë¥¼ ì´ìš©í•  ìˆ˜ ìˆëŠ” ì´ìš©ê¶Œì…ë‹ˆë‹¤. \n"
+						+ "í‡´ì‹¤ì‹œì— ë‚¨ì€ ì‹œê°„ì´ ì €ì¥ë©ë‹ˆë‹¤.\n"
+						+ "ê¸°ê°„ê¶Œì€ ì¼ ë‹¨ìœ„ë¡œ ë£¸ì¹´í˜ë¥¼ ì´ìš©í•  ìˆ˜ ìˆëŠ” ì´ìš©ê¶Œì…ë‹ˆë‹¤.\n"
+						+ "24ì‹œê°„ ì´ìš© ê°€ëŠ¥í•˜ë‚˜, ì¤‘ë„ í‡´ì‹¤ì‹œ í•˜ë£¨ ë‹¨ìœ„ë¡œ ì†Œë©¸ë©ë‹ˆë‹¤.");
+				helpMsg.setFont(new Font("êµ´ë¦¼", Font.BOLD, 20));
 				// TODO Auto-generated method stub
-				JOptionPane.showMessageDialog(frame, helpMsg, "µµ¿ò¸»", JOptionPane.INFORMATION_MESSAGE );
+				JOptionPane.showMessageDialog(frame, helpMsg, "ë„ì›€ë§", JOptionPane.INFORMATION_MESSAGE );
 			}
 		});
 	}
 		
-	public void setVisible(boolean b) {
+	public void setVisible(boolean b) {	// ì™¸ë¶€ í´ë˜ìŠ¤ì—ì„œ í•´ë‹¹ í´ë˜ìŠ¤ì˜ frameì„ setVisible í˜¸ì¶œí•  ê²½ìš° ì²˜ë¦¬.
 		// TODO Auto-generated method stub
 		frame.setVisible(b);
 	}
