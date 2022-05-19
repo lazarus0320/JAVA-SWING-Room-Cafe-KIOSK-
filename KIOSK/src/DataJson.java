@@ -15,17 +15,18 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class DataJson extends ShareData{
-	// µ¥ÀÌÅÍ JSONÆÄÀÏÀ» ¸¸µé¾îÁÖ´Â ÆÄÀÏÀÔ´Ï´Ù. µ¥ÀÌÅÍº£ÀÌ½º ¸®¼Â¿ëµµ·Î »ç¿ëÇÕ´Ï´Ù.
-	// °ü¸®ÀÚ ¸ğµå·Î ·Î±×ÀÎ½Ã¿¡ ÃÊ±âÈ­ ¹öÆ°À» ´©¸£¸é ÀÌ Å¬·¡½º¸¦ ½ÇÇàÇÕ´Ï´Ù.
+	// ë°ì´í„° JSONíŒŒì¼ì„ ë§Œë“¤ì–´ì£¼ëŠ” íŒŒì¼. ë°ì´í„°ë² ì´ìŠ¤ ë¦¬ì…‹ìš©ë„ë¡œ ì‚¬ìš©.
+	// ê´€ë¦¬ì ëª¨ë“œë¡œ ë¡œê·¸ì¸ì‹œì— ì´ˆê¸°í™” ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ ì´ í´ë˜ìŠ¤ë¥¼ ì‹¤í–‰í•˜ë„ë¡ í•¨.
+	// map(Array(map))) í˜•íƒœë¡œ ë§Œë“¤ì–´ì¡ŒìŒ. mapì€ JSONObject, ArrayëŠ” JSONArrayë¥¼ í™œìš©í•´ì„œ ë§Œë“¤ ìˆ˜ ìˆìŒ. JSONì˜ ëª¨ë“  ê°’ì€ Stringìœ¼ë¡œ ë§Œë“¤ì–´ì•¼í•¨.
 	JSONObject parent = new JSONObject();
-	DataJson() {
+	public DataJson() {
 		
 		JSONArray childrens = new JSONArray();
 		
 		JSONObject child = new JSONObject();
 		child.put("id", "admin0320");
 		child.put("password", "admin0320");
-		child.put("name", "¹ÎÁöÈÆ");
+		child.put("name", "ë¯¼ì§€í›ˆ");
 		child.put("phone", "01082485327");
 		child.put("timeTicket", "10000");
 		child.put("dayTicket", "100");
@@ -36,12 +37,12 @@ public class DataJson extends ShareData{
 //
 		childrens.add(child);
 		
-		parent.put("È¸¿øÁ¤º¸", childrens);
+		parent.put("íšŒì›ì •ë³´", childrens);
 		
 		JSONObject child2 = new JSONObject();
 		child2.put("id", "hong1234");
 		child2.put("password", "12345678");
-		child2.put("name", "È«±æµ¿");
+		child2.put("name", "í™ê¸¸ë™");
 		child2.put("phone", "01012345678");
 		child2.put("timeTicket", "120");
 		child2.put("dayTicket", "3");
@@ -52,7 +53,7 @@ public class DataJson extends ShareData{
 		
 		childrens.add(child2);
 		
-		parent.put("È¸¿øÁ¤º¸", childrens);
+		parent.put("íšŒì›ì •ë³´", childrens);
 		
 		JSONArray roomsArr = new JSONArray();
 		JSONObject roomsObj1 = new JSONObject();
@@ -87,109 +88,109 @@ public class DataJson extends ShareData{
 		roomsArr.add(roomsObj9);
 		roomsArr.add(roomsObj10);
 		
-		parent.put("·ëÁ¤º¸", roomsArr);
+		parent.put("ë£¸ì •ë³´", roomsArr);
 		
 		JSONArray foodArr = new JSONArray();
 		JSONObject food = new JSONObject();
-		food.put("name", "¶±ººÀÌ");
+		food.put("name", "ë–¡ë³¶ì´");
 		food.put("price", "3000");
-		food.put("sort", "ºĞ½Ä·ù");
+		food.put("sort", "ë¶„ì‹ë¥˜");
 		foodArr.add(food);
 		
 		JSONObject food2 = new JSONObject();
-		food2.put("name", "±è¸»ÀÌ");
+		food2.put("name", "ê¹€ë§ì´");
 		food2.put("price", "3000");
-		food2.put("sort", "ºĞ½Ä·ù");
+		food2.put("sort", "ë¶„ì‹ë¥˜");
 		foodArr.add(food2);
 		
 		JSONObject food3 = new JSONObject();
-		food3.put("name", "±è¹ä");
+		food3.put("name", "ê¹€ë°¥");
 		food3.put("price", "3000");
-		food3.put("sort", "ºĞ½Ä·ù");
+		food3.put("sort", "ë¶„ì‹ë¥˜");
 		foodArr.add(food3);
 		
 		JSONObject food4 = new JSONObject();
-		food4.put("name", "³Ãµ¿¸¸µÎ");
+		food4.put("name", "ëƒ‰ë™ë§Œë‘");
 		food4.put("price", "2000");
-		food4.put("sort", "ºĞ½Ä·ù");
+		food4.put("sort", "ë¶„ì‹ë¥˜");
 		foodArr.add(food4);
 		
 		JSONObject food5 = new JSONObject();
-		food5.put("name", "¶ó¸é");
+		food5.put("name", "ë¼ë©´");
 		food5.put("price", "2500");
-		food5.put("sort", "¸é·ù");
+		food5.put("sort", "ë©´ë¥˜");
 		foodArr.add(food5);
 		
 		JSONObject food6 = new JSONObject();
-		food6.put("name", "Â¥ÆÄ°ÔÆ¼");
+		food6.put("name", "ì§œíŒŒê²Œí‹°");
 		food6.put("price", "2500");
-		food6.put("sort", "¸é·ù");
+		food6.put("sort", "ë©´ë¥˜");
 		foodArr.add(food6);
 		
 		JSONObject food7 = new JSONObject();
-		food7.put("name", "½ºÆÄ°ÔÆ¼");
+		food7.put("name", "ìŠ¤íŒŒê²Œí‹°");
 		food7.put("price", "3000");
-		food7.put("sort", "¸é·ù");
+		food7.put("sort", "ë©´ë¥˜");
 		foodArr.add(food7);
 		
 		JSONObject food8 = new JSONObject();
-		food8.put("name", "¸¶¶óÅÁ");
+		food8.put("name", "ë§ˆë¼íƒ•");
 		food8.put("price", "8000");
-		food8.put("sort", "½Ä»ç·ù");
+		food8.put("sort", "ì‹ì‚¬ë¥˜");
 		foodArr.add(food8);
 		
 		JSONObject food9 = new JSONObject();
-		food9.put("name", "µ·±î½ºµ¤¹ä");
+		food9.put("name", "ëˆê¹ŒìŠ¤ë®ë°¥");
 		food9.put("price", "6000");
-		food9.put("sort", "½Ä»ç·ù");
+		food9.put("sort", "ì‹ì‚¬ë¥˜");
 		foodArr.add(food9);
 		
 		JSONObject food10 = new JSONObject();
-		food10.put("name", "´ëÆĞ»ğ°ãºñºö¹ä");
+		food10.put("name", "ëŒ€íŒ¨ì‚½ê²¹ë¹„ë¹”ë°¥");
 		food10.put("price", "5500");
-		food10.put("sort", "½Ä»ç·ù");
+		food10.put("sort", "ì‹ì‚¬ë¥˜");
 		foodArr.add(food10);
 		
 		JSONObject food11 = new JSONObject();
-		food11.put("name", "µ¹¼Üºñºö¹ä");
+		food11.put("name", "ëŒì†¥ë¹„ë¹”ë°¥");
 		food11.put("price", "6000");
-		food11.put("sort", "½Ä»ç·ù");
+		food11.put("sort", "ì‹ì‚¬ë¥˜");
 		foodArr.add(food11);
 		
 		JSONObject food12 = new JSONObject();
-		food12.put("name", "¾ÆÀÌ½º¾Æ¸Ş¸®Ä«³ë");
+		food12.put("name", "ì•„ì´ìŠ¤ì•„ë©”ë¦¬ì¹´ë…¸");
 		food12.put("price", "3000");
-		food12.put("sort", "À½·á·ù");
+		food12.put("sort", "ìŒë£Œë¥˜");
 		foodArr.add(food12);
 		
 		JSONObject food13 = new JSONObject();
-		food13.put("name", "ÄÚÄ«Äİ¶ó");
+		food13.put("name", "ì½”ì¹´ì½œë¼");
 		food13.put("price", "2000");
-		food13.put("sort", "À½·á·ù");
+		food13.put("sort", "ìŒë£Œë¥˜");
 		foodArr.add(food13);
 		
 		JSONObject food14 = new JSONObject();
-		food14.put("name", "È¯Å¸");
+		food14.put("name", "í™˜íƒ€");
 		food14.put("price", "2000");
-		food14.put("sort", "À½·á·ù");
+		food14.put("sort", "ìŒë£Œë¥˜");
 		foodArr.add(food14);
 		
 		JSONObject food15 = new JSONObject();
-		food15.put("name", "¹ĞÅ©½¦ÀÌÅ©");
+		food15.put("name", "ë°€í¬ì‰ì´í¬");
 		food15.put("price", "4500");
-		food15.put("sort", "À½·á·ù");
+		food15.put("sort", "ìŒë£Œë¥˜");
 		foodArr.add(food15);
 		
-		parent.put("À½½ÄÁ¤º¸", foodArr);
+		parent.put("ìŒì‹ì •ë³´", foodArr);
 		
 		
 	}
 	void DataPrint() {
 		System.out.println(parent.toString());
-		System.out.println("JSON µ¥ÀÌÅÍ ¿­¶÷ ¿Ï·á");
+		System.out.println("JSON ë°ì´í„° ì—´ëŒ ì™„ë£Œ");
 	}
 	
-	void DataReset() { // »ı¼ºÀÚ·Î ¸¸µé¾îÁø parent data¸¦ jsonÆÄÀÏ·Î »ı¼ºÇÏ´Â ¸Ş¼­µå.
+	void DataReset() { // ìƒì„±ìë¡œ ë§Œë“¤ì–´ì§„ parent dataë¥¼ jsoníŒŒì¼ë¡œ ìƒì„±í•˜ëŠ” ë©”ì„œë“œ.
 
 			
 		FileOutputStream fileOutputStream = null;
@@ -208,7 +209,7 @@ public class DataJson extends ShareData{
 		}
 		BufferedWriter file = new BufferedWriter(OutputStreamWriter);
 		
-		System.out.println("JSON µ¥ÀÌÅÍ ÃÊ±âÈ­ ¿Ï·á");
+		System.out.println("JSON ë°ì´í„° ì´ˆê¸°í™” ì™„ë£Œ");
 		try {
 			file.write(parent.toJSONString());
 		} catch (IOException e1) {
