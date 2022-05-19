@@ -36,7 +36,7 @@ public class Admin extends ShareData{
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("\uAD00\uB9AC\uC790 \uBAA8\uB4DC");
-		lblNewLabel.setFont(new Font("���� ����", Font.BOLD, 40));
+		lblNewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 40));
 		lblNewLabel.setBounds(34, 22, 347, 85);
 		panel.add(lblNewLabel);
 		
@@ -44,13 +44,15 @@ public class Admin extends ShareData{
 		resetJsonBtn.setBounds(92, 124, 125, 66);
 		panel.add(resetJsonBtn);
 		
+		// 초기화 버튼 이벤트 리스너
+		
 		resetJsonBtn.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				resetClicked = true;
-				DataJson data = new DataJson();  // JSON ������ �ʱ�ȭ
+				DataJson data = new DataJson();  // JSON 데이터 초기화
 				data.DataReset();
 				data.DataPrint();
 				resetClicked = false;
@@ -58,7 +60,7 @@ public class Admin extends ShareData{
 		});
 	}
 
-	public void setVisible(boolean b) {
+	public void setVisible(boolean b) {	// 외부 클래스에서 해당 클래스의 frame을 setVisible 호출할 경우 처리
 		// TODO Auto-generated method stub
 		frame.setVisible(b);
 	}
