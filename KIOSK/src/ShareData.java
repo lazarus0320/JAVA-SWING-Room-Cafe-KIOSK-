@@ -12,8 +12,7 @@ public class ShareData {
 	public static String userTimeTicket = null; // 회원의 보유 시간권 누적합
 	public static String userDayTicket = null;	// 회원의 보유 기간권 누적합
 	
-	public static String startTicketTime = "X"; // 회원이 대실을 했을 경우 입력되는 대실 시간. 년월일시분초 형태로 저장됨.
-	public static long startTimeMilli = 0;		// 대실 시간을 밀리세컨드로 저장
+	public static String startTicketTime = "X"; // 회원이 대실을 했을 경우 입력되는 대실 시간. 밀리초 형태로 저장됨.
 	
 	public static String timeTicketUse = "false";	// 회원이 시간권으로 대실했는지 여부
 	public static String dayTicketUse = "false";	// 회원이 기간권으로 대실했는지 여부
@@ -23,4 +22,27 @@ public class ShareData {
 	public static int selectedTicketPrice = 0;		// 이용권 구매 클래스에서 선택한 이용권의 가격을 저장함
 	
 	public static boolean resetClicked = false;		// 일단 보류
+	
+	public void resetData(){
+		selectedRoomNum = 0; // 룸선택 화면에서 선택한 방의 번호.
+		userStatus = null; // userStatus가 null이면 퇴실했거나 로그인하지 않은 상태임.
+		userName = null;
+		userId = null;
+		userPass = null;
+		userPhone = null;
+		userTimeTicket = null; // 회원의 보유 시간권 누적합
+		userDayTicket = null;	// 회원의 보유 기간권 누적합
+		
+		startTicketTime = "X"; // 회원이 대실을 했을 경우 입력되는 대실 시간. 밀리초 형태로 저장됨.
+		
+		timeTicketUse = "false";	// 회원이 시간권으로 대실했는지 여부
+		dayTicketUse = "false";	// 회원이 기간권으로 대실했는지 여부
+		
+		
+		selectedTicketName = null;	// 이용권 구매 클래스에서 선택한 이용권의 이름을 저장함
+		selectedTicketPrice = 0;		// 이용권 구매 클래스에서 선택한 이용권의 가격을 저장함
+		
+		resetClicked = false;	
+	}
 }
+
