@@ -101,6 +101,7 @@ public class logIn extends ShareData{
 				userDayTicket = (String)obj.get("dayTicket");	  // 기간권 시간 누적합
 				timeTicketUse = (String)obj.get("timeTicketUse"); // 시간권 사용 여부
 				dayTicketUse =  (String)obj.get("dayTicketUse");  // 기간권 사용 여부
+				startTicketTime =  (String)obj.get("startTicketTime");  // 대실 시작 시간(대실 하지 않았을 경우 "X"값 가짐)
 				
 				System.out.println(userName);
 				System.out.println(userId);
