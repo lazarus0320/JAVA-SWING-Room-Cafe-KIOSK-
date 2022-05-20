@@ -44,6 +44,10 @@ public class Admin extends ShareData{
 		resetJsonBtn.setBounds(92, 124, 125, 66);
 		panel.add(resetJsonBtn);
 		
+		JButton gotoLoginBtn = new JButton("\uB85C\uADF8\uC778 \uD654\uBA74");
+		gotoLoginBtn.setBounds(67, 621, 150, 73);
+		panel.add(gotoLoginBtn);
+		
 		// 초기화 버튼 이벤트 리스너
 		
 		resetJsonBtn.addActionListener(new ActionListener() {
@@ -56,6 +60,18 @@ public class Admin extends ShareData{
 				data.DataReset();
 				data.DataPrint();
 				resetClicked = false;
+			}
+		});
+		
+		gotoLoginBtn.addActionListener(new ActionListener() { // 로그인 화면으로 이동. 로그아웃과 같아서 sharedata를 초기화함.
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				resetData();	// sharedata의 resetData함수를 실행
+				logIn login = new logIn();
+				login.setVisible(true);
+				frame.setVisible(false);
 			}
 		});
 	}
