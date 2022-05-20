@@ -1,17 +1,19 @@
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -47,8 +49,6 @@ public class RoomStage extends ShareData{
 			roomState[i] = (String)obj.get("room");	
 			System.out.println(roomState[i]);
 		}
-		
-		
 	}
 	
 	public void RentedRoomCheck() throws IOException, ParseException{ // 로그인한 계정이 대실을 했는지 체크하고 대실했던 룸의 방번호를 받아오는 함수
@@ -71,7 +71,7 @@ public class RoomStage extends ShareData{
 				 */
 				startTicketTime = (String)obj.get("startTicketTime"); 
 				
-				// startTicketTime은 이전에 대실을 했을 경우 true값을 가지고, timeTicketUse는 보유한 시간권을 사용하여 룸 선택 클래스로 진입했거나 시간권을 구매하자마자 즉시 사용하여 룸 선택 클래스로 진입했을 때 true를 가짐.
+				// startTicketTime은 이전에 대실을 했을 경우 밀리초값을 가지고 있기 때문에 첫번째 항은 true가 되고, timeTicketUse는 보유한 시간권을 사용하여 룸 선택 클래스로 진입했거나 시간권을 구매하자마자 즉시 사용하여 룸 선택 클래스로 진입했을 때 true를 가짐.
 				if ((startTicketTime.equals("X") == false) && ((String)obj.get("timeTicketUse")).equals("true")) {
 					timeTicketUse = "true"; // (String)obj.get("timeTicketUse")).equals("true")를 자주 사용할 것이기 때문에 static 변수에다가 저장해서 쓰는게 쓸데없는 연산을 줄일 수 있음.
 					selectedRoomNum = Integer.parseInt((String)obj.get("rentRoomNum"));	// 선택한 룸에 대한 정보를 저장
@@ -150,6 +150,93 @@ public class RoomStage extends ShareData{
 				obj.put("rentRoomNum", Integer.toString(selectedRoomNum));	// 선택했던 룸 넘버도 "rentRoomNum"에 저장.
 			}
 		}
+		try { 
+			// JSON 파일 오픈하고 변경된 데이터를 수정하고 저장함.
+			FileOutputStream fileOutputStream2 = new FileOutputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
+			OutputStreamWriter OutputStreamWriter2 = new OutputStreamWriter(fileOutputStream2, "utf-8");
+			BufferedWriter file2 = new BufferedWriter(OutputStreamWriter2);
+			//
+			System.out.println(jsonObj.toJSONString());
+			file2.write(jsonObj.toJSONString()); 
+			file2.flush(); 
+			file2.close(); 
+		} catch (IOException e) { 
+				e.printStackTrace(); 
+		}
+	}
+	
+	public void roomCheckout() throws IOException, ParseException {	// 룸 퇴실. startTicketTime = "X" 초기화, 사용시간만큼 해당 이용권의 누적합에서 차감.
+		Date date = new Date();
+		long checkoutTime = date.getTime();	// 퇴실 시간을 밀리초로 받아옴.
+		long usedRoomTime = checkoutTime - Long.parseLong(startTicketTime);	// 퇴실시간 - 대실시간을 밀리초로 저장.
+		long usedRoomTime_min = TimeUnit.MILLISECONDS.toMinutes(usedRoomTime);	// 분단위로 변환
+		long usedRoomTime_day = TimeUnit.MILLISECONDS.toDays(usedRoomTime);		// 일단위로 변환
+		usedRoomTime_day += 1;	// 기간권은 1분을 사용해도 퇴실시 1일이 차감되어야하므로 1을 더해줌.
+		System.out.println("대실 이용 시간 : " + usedRoomTime_min + "분");
+		System.out.println("대실 이용 시간 : " + (usedRoomTime_day) + "일");
+		
+		// JSON 오픈
+		FileInputStream fileInputStream = new FileInputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
+		InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "utf-8");
+		BufferedReader file = new BufferedReader(inputStreamReader);
+		JSONParser parser = new JSONParser();
+		
+		// 회원정보 받아옴
+		JSONObject jsonObj = (JSONObject)parser.parse(file);
+		JSONArray accountArr = (JSONArray)jsonObj.get("회원정보");
+		for (int i = 0; i < accountArr.size(); i++) {
+			JSONObject obj = (JSONObject)accountArr.get(i);
+			// 로그인한 계정의 이름과 같은 value 값을 가지고 있는 map을 obj로 받음.
+			if (obj.get("name").equals(userName)) {
+				// 만약 시간권을 사용중인 상황이라면 
+				selectedRoomNum = Integer.parseInt((String)obj.get("rentRoomNum"));	// 회원이 대실했던 룸 정보를 받아옴.
+				obj.put("rentRoomNum", "X");	// 룸정보 초기화	
+				if (timeTicketUse.equals("true")) {		// 시간권 사용 여부와 대실 시작시간을 초기화
+					obj.put("timeTicketUse", "false");
+					obj.put("startTicketTime", "X");
+					timeTicketUse = "false";
+					startTicketTime = "X";
+					System.out.println("timeTicketUse : " + timeTicketUse);
+					
+					// 룸 사용시간만큼 해당 이용권의 누적합에서 차감.
+					int getTimeTicket = Integer.parseInt((String)obj.get("timeTicket"));
+					int changeTimeTicket = getTimeTicket - (int)usedRoomTime_min;
+					if (changeTimeTicket < 0) changeTimeTicket = 0;
+					if (changeTimeTicket == 0) {
+						obj.put("timeTicket", "X");
+					} else {
+						obj.put("timeTicket", Integer.toString(changeTimeTicket));
+					}
+					
+				}
+				else if (dayTicketUse.equals("true")) {		
+					obj.put("dayTicketUse", "false");
+					obj.put("startTicketTime", "X");
+					dayTicketUse = "false";
+					startTicketTime = "X";
+					System.out.println("dayTicketUse : " + dayTicketUse);
+					
+					int getTimeTicket = Integer.parseInt((String)obj.get("dayTicket"));
+					int changeTimeTicket = getTimeTicket - (int)usedRoomTime_day;
+					if (changeTimeTicket < 0) changeTimeTicket = 0;
+					if (changeTimeTicket == 0) {
+						obj.put("dayTicket", "X");
+					} else {
+						obj.put("dayTicket", Integer.toString(changeTimeTicket));
+					}
+					
+				}
+			}
+		}
+		
+		JSONArray roomArr = (JSONArray)jsonObj.get("룸정보");
+		for (int i = 0; i < roomArr.size(); i++) {
+			JSONObject roomObj = (JSONObject)roomArr.get(i);
+			if (i == selectedRoomNum-1) {	// 대실했던 룸을 대실 가능한 상태로 갱신해줌.
+				roomObj.put("room", "None");
+			}
+		}
+		selectedRoomNum = 0;
 		try { 
 			// JSON 파일 오픈하고 변경된 데이터를 수정하고 저장함.
 			FileOutputStream fileOutputStream2 = new FileOutputStream("C:\\KIOSK\\KIOSK_USER\\user_database.json");
@@ -475,8 +562,20 @@ public class RoomStage extends ShareData{
             @Override
             public void actionPerformed(ActionEvent e) {
             	if (startTicketTime.equals("X") == false) { // 해당 계정이 대실한 상태일 경우
-            		JOptionPane.showMessageDialog(null, "퇴실 기능입니다. 미구현.");
-            		return; // 함수 탈출
+            		int answer = JOptionPane.showConfirmDialog(null, String.format("퇴실하시겠습니까?"), "confirm", JOptionPane.YES_NO_OPTION);
+        			if(answer == JOptionPane.YES_OPTION) {
+        				try {
+							roomCheckout();
+						} catch (IOException | ParseException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+        				Ticket tk = new Ticket();
+        				tk.setVisible(true);
+        				frame.setVisible(false);
+        			} else {
+        				return; // 함수 탈출
+        			}
             	}
             	// 해당 계정이 대실을 하지 않은 상태인 경우.
             	for (int i = 0; i < rooms.length; i++) {
