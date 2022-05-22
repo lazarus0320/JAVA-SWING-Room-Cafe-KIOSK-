@@ -124,7 +124,7 @@ id : admin0320   password : admin0320
 JSON 파일을 생성하고 파싱하는데에 json-simple-1.1.1.jar 외부 라이브러리를 사용했습니다. 아래의 링크에서 파일을 다운받으세요.
 https://code.google.com/archive/p/json-simple/downloads
 
-![image](https://user-images.githubusercontent.com/84646738/169691031-a7e55d9d-93ab-4f2c-a2dd-f2f03d1b3dc5.png
+![image](https://user-images.githubusercontent.com/84646738/169691031-a7e55d9d-93ab-4f2c-a2dd-f2f03d1b3dc5.png)
 
 
 프로젝트에 외부라이브러리를 추가하는 방법입니다. 프로젝트 이름에 오른쪽 마우스 클릭을 해서 Configure Build Path를 선택합니다.
