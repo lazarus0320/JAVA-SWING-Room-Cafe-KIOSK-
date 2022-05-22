@@ -76,6 +76,16 @@ JSON 파일 내에서 중요한 데이터를 관리하고 있기 때문에 프�
 방을 사용했던 시간을 계산하여 잔여 시간권 또는 기간권에서 차감합니다.
 이제 해당 사용자는 이용권을 사용하거나 구매할 수 있게 되었습니다.
 
+![관리자모드](https://user-images.githubusercontent.com/84646738/169689624-26485f39-45f1-4d62-8aaa-57907a0d5e71.jpg)
+
+![image](https://user-images.githubusercontent.com/84646738/169691315-eb8871ce-40d1-4e3e-bdaa-493f84a92838.png)
+
+id : admin0320   password : admin0320
+위의 정보로 로그인하면 관리자 모드로 접근할 수 있습니다. 지금은 JSON데이터 초기화 기능만을 구현했습니다.
+소스 코드로 구현한 디폴트 값으로 JSON 데이터를 초기화합니다.
+향후 여러가지 기능들을 추가할 예정입니다.
+
+
 
 3. 소스 파일 테스트 전 참고사항
 ![파일저장1](https://user-images.githubusercontent.com/84646738/169689639-079e3eab-4121-4741-99a9-c2095d4539c1.jpg)
