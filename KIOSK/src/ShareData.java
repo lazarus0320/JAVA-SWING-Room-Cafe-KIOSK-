@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import org.json.simple.JSONObject;
 //static data 클래스(휘발성)
 public class ShareData {
@@ -22,6 +24,13 @@ public class ShareData {
 	public static int selectedTicketPrice = 0;		// 이용권 구매 클래스에서 선택한 이용권의 가격을 저장함
 	
 	public static boolean resetClicked = false;		// 일단 보류
+	
+	
+	// JSON 데이터의 음식정보를 열람하여 음식 종류별로 배열에 담는다. OrderFood 클래스의 loadFoodData() 함수에 의해 값이 할당됨.
+	public static ArrayList<Object> snackData = new ArrayList<>();	// 분식류 map 값들을 배열로 받음
+	public static ArrayList<Object> noodleData = new ArrayList<>(); // 면류 map 값들을 배열로 받음
+	public static ArrayList<Object> mealData = new ArrayList<>();	// 식사류 map 값들을 배열로 받음
+	public static ArrayList<Object> drinkData = new ArrayList<>();  // 음료류 map 값들을 배열로 받음
 	
 	public void resetData(){
 		selectedRoomNum = 0; // 룸선택 화면에서 선택한 방의 번호.
