@@ -6,12 +6,10 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -570,9 +568,11 @@ public class RoomStage extends ShareData{
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
+        				JOptionPane.showMessageDialog(null, userName + "님, 이용해주셔서 감사합니다.");
         				Ticket tk = new Ticket();
         				tk.setVisible(true);
         				frame.setVisible(false);
+        				return;
         			} else {
         				return; // 함수 탈출
         			}
@@ -614,14 +614,17 @@ public class RoomStage extends ShareData{
 		});
 		
 		
-		// 음식 주문 버튼 이벤트 리스너. 미구현
+		// 음식 주문 버튼 이벤트 리스너. 방을 대실한 상태에서만 이용 가능함.
 		orderBtn.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(startTicketTime.equals("X") == false) {
-					JOptionPane.showMessageDialog(null, "음식 주문 기능입니다. 미구현.");
+					OrderFood of = new OrderFood();
+					of.setVisible(true);
+					frame.setVisible(false);
+					
 					return;
 				}
 				JOptionPane.showMessageDialog(null, "먼저 룸을 대실해야합니다.");
