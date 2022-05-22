@@ -457,12 +457,13 @@ public class BuyTicketWindow extends ShareData{
 					} else{  //사용자가 Yes 이외의 값을 눌렀을 경우
 						// 즉시 사용을 거부하였으므로 사용자가 보유한 이용권을 열람하는 클래스를 호출함.
 						System.out.println("이용권 즉시 사용 거부.");
-						Ticket tk = new Ticket();
+						BuyTicket tk = new BuyTicket();
 						tk.setVisible(true);
 						frame.setVisible(false);
 					}
 				} else{  //사용자가 Yes 이외의 값을 눌렀을 경우
 					System.out.println("결제 취소.");
+					
 				}
 				
 			}
