@@ -3,7 +3,7 @@
 자바 스윙 GUI 프로그래밍으로 키오스크 시스템을 구현한 프로젝트입니다.
 
 1. 프로젝트 설계
-2. 
+
 
 ![프로젝트 개요](https://user-images.githubusercontent.com/84646738/169689642-eb243ec1-75b8-4fdd-9641-210fabe30f4e.jpg)
 
